@@ -1,0 +1,19 @@
+.sidebar {
+  height: 100vh;
+  flex: 0.12;
+  border-right: 0.1px solid #38393a;
+}
+
+.active {
+  color: rgb(134, 132, 132) !important;
+}
+
+.active:hover {
+  color: white !important;
+}
+
+.menuItem {
+  background: linear-gradient(42deg, #723e7b 10.2%, #9b2352 82.74%);
+  border-radius: 15px;
+  margin-bottom: 10px !important;
+}

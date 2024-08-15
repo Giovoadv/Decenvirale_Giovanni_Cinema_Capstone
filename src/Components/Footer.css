@@ -1,0 +1,56 @@
+.footer-wrapper {
+  height: 300px;
+  background: linear-gradient(42deg, #723e7b 10.2%, #9b2352 82.74%);
+  display: flex;
+  align-items: center;
+  
+  
+}
+
+.copyright {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  letter-spacing: 0.2rem;
+  margin-left: 25px;
+}
+
+.copyright p {
+  margin-top: 100px;
+}
+
+.developed {
+  flex: 1;
+  text-align: center;
+  font-weight: bolder;
+}
+
+.icons {
+  flex: 1;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.icons svg:hover {
+  fill: rgb(173, 183, 192);
+  cursor: pointer;
+}
+
+.cinemaTitleFooter {
+  letter-spacing: 1rem;
+  font-size: 4rem;
+}
+.cinemaTitleFooter:hover {
+  color: rgb(173, 183, 192);
+}
+
+.moviesFooter {
+  display: flex;
+  flex-direction: column;
+  margin-left: 25px;
+  margin-top: 25px;
+}
+.moviesFooter span:hover {
+  color: white;
+}

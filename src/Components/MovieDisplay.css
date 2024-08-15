@@ -1,0 +1,86 @@
+/* Container for movie posters */
+.movie-poster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem;
+  justify-content: center; /* Center items if needed */
+}
+
+/* Style for individual movie wrapper */
+.img-wrapper {
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  border-radius: 8px;
+  padding: 1rem;
+  width: 20rem;
+  text-align: center;
+}
+
+.img-wrapper img {
+  flex: 1;
+
+  border-radius: 4px;
+}
+
+/* Style for movie titles */
+.movie-title {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 10px 0 5px;
+  color: rgb(92, 89, 89);
+}
+
+/* Style for movie overview */
+.movie-overview {
+  font-size: 0.9em;
+  color: #555;
+  line-height: 1.4;
+}
+
+/* Style for featured movies section (if needed) */
+.featuredMovies {
+  display: flex;
+  justify-content: center;
+  color: white;
+  margin-top: 5rem;
+  font-style: oblique;
+  font-weight: bold;
+  font-size: x-large;
+}
+
+/* button{
+  background: linear-gradient(42deg, #723e7b 10.2%, #9b2352 82.74%);
+} */
+
+.buttonSection {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 50px;
+}
+.movieTypeButton {
+  height: 150px;
+  width: 350px;
+  background-color: #3a3838;
+  border: none;
+  border-radius: 15px;
+  color: white;
+  font-weight: bold;
+}
+
+.movieTypeButton:hover {
+  background-image: url("/public/pexels-obregonia-d-toretto-325418-918281.jpg");
+  background-size: 350px;
+  opacity: 0.5;
+}
+.movieTypeButton:nth-child(2):hover {
+  background-image: url("/public/pexels-inspiredimages-157542.jpg");
+}
+.movieTypeButton:nth-child(3):hover {
+  background-image: url("/public/pexels-dmitry-demidov-515774-3921045.jpg");
+}
+
+.movieTypeButton:last-child:hover {
+  background-image: url("/public/pexels-neosiam-603580.jpg");
+}
