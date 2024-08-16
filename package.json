@@ -7,7 +7,10 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "nodemon app.js",
+    "start-server": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "@emotion/react": "^11.13.0",
@@ -19,7 +22,12 @@
     "axios": "^1.7.3",
     "bootstrap": "^5.3.3",
     "cdbreact": "^1.5.19",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
     "jquery": "^3.7.1",
+    "mongoose": "^8.5.3",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.4",
     "popper.js": "^1.16.1",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.4",

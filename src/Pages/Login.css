@@ -1,0 +1,27 @@
+.loginWrapper {
+  margin: 40px 40px;
+  display: flex;
+  justify-content: center;
+
+  align-items: center;
+
+  /* width: 50%; */
+  height: 50%;
+}
+
+h1 {
+  text-align: center;
+}
+
+.loginContainer {
+  background-color: white;
+  width: 20rem;
+  height: 23rem;
+  justify-content: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
