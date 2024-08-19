@@ -13,9 +13,8 @@ export const Login = () => {
       <section className="content-wrapper">
         <CinemaNavbar />
         <section className="content-body">
-          <section className="carousel-wrapper"></section>
           <div className="loginWrapper">
-            <div >
+            <div>
               <h1>Sign In</h1>
               <form className="loginContainer">
                 <label htmlFor="">Username</label>
