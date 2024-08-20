@@ -1,10 +1,9 @@
-import { Cookie } from "@mui/icons-material";
 import jwt from "jsonwebtoken";
 
-const generateToken = (res, userID) => {
+const generateToken = (res, userId) => {
   const token = jwt.sign(
     {
-      userID,
+      userId,
     },
     process.env.JWT_SECRET,
     { expiresIn: "30d" }
@@ -12,8 +11,8 @@ const generateToken = (res, userID) => {
   res.cookie("jwt", token, {
     httpOnly: true,
     secure: process.env.NODE_ENV !== "development",
-    sameSite: "strict0",
-    maxAge: 30 * 24 * 60 * 1000,
+    sameSite: "strict",
+    maxAge: 30 * 24 * 60 * 60 * 1000,
   });
 };
 
