@@ -1,10 +1,10 @@
 import React from "react";
-import CinemaNavbar from "../Components/CinemaNavbar";
 import Sidebar from "../Components/Sidebar";
+import CinemaNavbar from "../Components/CinemaNavbar";
 import Footer from "../Components/Footer";
-import "./Login.css";
 import { Link } from "react-router-dom";
-export const Login = () => {
+
+const Register = () => {
   return (
     <div className="appWrapper">
       <section className="sidebar-wrapper">
@@ -15,16 +15,16 @@ export const Login = () => {
         <section className="content-body">
           <div className="loginWrapper">
             <div>
-              <h1>Sign In</h1>
+              <h1>Register</h1>
               <form className="loginContainer">
-                <label htmlFor="">Username</label>
+                <label htmlFor="">Name</label>
+                <input type="text" />
+                <label htmlFor="">Email</label>
                 <input type="text" />
                 <label htmlFor="">Password</label>
                 <input type="text" />
-                <Link className="btn btn-primary">Sign in</Link>
+                <Link className="btn btn-primary" to="/login">Register</Link>
               </form>
-              <h3>Don't have an account?</h3>
-              <Link to="/register">Create a New Account</Link>
             </div>
           </div>
 
@@ -36,3 +36,5 @@ export const Login = () => {
     </div>
   );
 };
+
+export default Register;
