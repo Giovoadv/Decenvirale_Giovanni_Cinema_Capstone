@@ -6,8 +6,8 @@ import Sidebar from "./Components/Sidebar";
 import FeaturedMovies from "./Components/FeaturedMovies";
 import { useState } from "react";
 import Footer from "./Components/Footer";
-import { Login } from "./Pages/Login";
-
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [movieType, setMovieType] = useState("now_playing");
@@ -20,23 +20,24 @@ function App() {
   return (
     <div className="appWrapper">
       {/* <BrowserRouter> */}
-        <section className="sidebar-wrapper">
-          <Sidebar handleClick={handleClick} />
-        </section>
-        <section className="content-wrapper">
-          <CinemaNavbar />
-          <section className="content-body">
-            <section className="carousel-wrapper">
-              <Carousel />
-            </section>
-            <section>
-              <FeaturedMovies movieType={movieType} handleClick={handleClick} />
-            </section>
-            <section>
-              <Footer />
-            </section>
+      
+      <section className="sidebar-wrapper">
+        <Sidebar handleClick={handleClick} />
+      </section>
+      <section className="content-wrapper">
+        <CinemaNavbar />
+        <section className="content-body">
+          <section className="carousel-wrapper">
+            <Carousel />
+          </section>
+          <section>
+            <FeaturedMovies movieType={movieType} handleClick={handleClick} />
+          </section>
+          <section>
+            <Footer />
           </section>
         </section>
+      </section>
       {/* </BrowserRouter> */}
     </div>
   );

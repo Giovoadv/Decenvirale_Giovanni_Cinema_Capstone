@@ -1,30 +1,87 @@
-import React from "react";
-import CinemaNavbar from "../Components/CinemaNavbar";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Sidebar from "../Components/Sidebar";
 import Footer from "../Components/Footer";
 import "./Login.css";
 import { Link } from "react-router-dom";
+import Navbar from "../Components/Navbar";
+import { toast } from "react-toastify";
+import { setCredentials } from "../Slices/authSlice";
+import axios from "axios";
+
 export const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navitate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(email, password);
+
+    axios
+      .post(
+        "http://localhost:3002/login",
+        { email, password },
+        { withCredentials: true }
+      )
+      .then((result) => {
+        console.log(result);
+        if (result.data === "Success") {
+          console.log("User logged in successfully");
+          // alert("User logged in successfully");
+          axios
+            .get("http://localhost:3002/user", { withCredentials: true })
+            .then((res) => {
+              if (res.data.user) {
+                navitate("/profile", { state: { user: res.data.user } });
+              }
+            });
+        } else {
+          alert("User do not exist");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        if (error.response && error.response.status === 401) {
+          alert("Password does not match");
+        } else {
+          alert("User do not exist");
+        }
+      });
+  };
+
   return (
     <div className="appWrapper">
       <section className="sidebar-wrapper">
         <Sidebar />
       </section>
       <section className="content-wrapper">
-        <CinemaNavbar />
+        <Navbar />
         <section className="content-body">
           <div className="loginWrapper">
             <div>
               <h1>Sign In</h1>
-              <form className="loginContainer">
-                <label htmlFor="">Username</label>
-                <input type="text" />
-                <label htmlFor="">Password</label>
-                <input type="text" />
-                <Link className="btn btn-primary">Sign in</Link>
+              <form className="loginContainer" onSubmit={handleSubmit}>
+                <label>Email</label>
+                <input
+                  type="email"
+                  placeholder="Enter Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <label>Password</label>
+                <input
+                  type="password"
+                  placeholder="Enter Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <button type="submit">Login</button>
               </form>
               <h3>Don't have an account?</h3>
-              <Link to="/register">Create a New Account</Link>
+              <Link to="/signup" type="submit">
+                Create a New Account
+              </Link>
             </div>
           </div>
 
