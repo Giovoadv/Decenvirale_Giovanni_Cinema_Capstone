@@ -5,11 +5,13 @@ import Footer from "../Components/Footer";
 import "./Login.css";
 import { Link } from "react-router-dom";
 import Navbar from "../Components/Navbar";
-import { toast } from "react-toastify";
-import { setCredentials } from "../Slices/authSlice";
 import axios from "axios";
+import { SetLoggedInContext } from "../App";
+import { useContext } from "react";
+import { set } from "mongoose";
 
 export const Login = () => {
+  const setIsLoggedIn = useContext(SetLoggedInContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navitate = useNavigate();
@@ -33,6 +35,7 @@ export const Login = () => {
             .get("http://localhost:3002/user", { withCredentials: true })
             .then((res) => {
               if (res.data.user) {
+                setIsLoggedIn(true);
                 navitate("/profile", { state: { user: res.data.user } });
               }
             });
@@ -52,9 +55,7 @@ export const Login = () => {
 
   return (
     <div className="appWrapper">
-      <section className="sidebar-wrapper">
-        <Sidebar />
-      </section>
+      <section className="sidebar-wrapper">{/* <Sidebar /> */}</section>
       <section className="content-wrapper">
         <Navbar />
         <section className="content-body">
@@ -85,9 +86,7 @@ export const Login = () => {
             </div>
           </div>
 
-          <section>
-            <Footer />
-          </section>
+          <section>{/* <Footer /> */}</section>
         </section>
       </section>
     </div>

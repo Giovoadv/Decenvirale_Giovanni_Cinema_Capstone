@@ -4,42 +4,61 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import Sidebar from "./Components/Sidebar";
 import FeaturedMovies from "./Components/FeaturedMovies";
-import { useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import Footer from "./Components/Footer";
-import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
+import { Login } from "./Pages/Login";
+import Home from "./Components/Home";
+import Register from "./Pages/Register";
+import NotFoundPage from "./Pages/NotFoundPage";
+import Profile from "./Pages/Profile";
+import axios from "axios";
+
+export const IsLoggedInContext = createContext();
+export const SetLoggedInContext = createContext();
 
 function App() {
-  const [movieType, setMovieType] = useState("now_playing");
-  const handleClick = (e, value) => {
-    e.preventDefault();
-    setMovieType(value);
-    console.log("click ", value);
-  };
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  /*useEffect(() => {
+    axios
+      .get("http://localhost:3002/user", { withCredentials: true })
+      .then((response) => {
+        if (response.data.user) {
+          setIsLoggedIn(true);
+        } else {
+          setIsLoggedIn(false);
+        }
+      })
+      .catch(() => setIsLoggedIn(false));
+  }, []);*/
 
   return (
-    <div className="appWrapper">
-      {/* <BrowserRouter> */}
-      
-      <section className="sidebar-wrapper">
-        <Sidebar handleClick={handleClick} />
-      </section>
-      <section className="content-wrapper">
-        <CinemaNavbar />
-        <section className="content-body">
-          <section className="carousel-wrapper">
-            <Carousel />
-          </section>
-          <section>
-            <FeaturedMovies movieType={movieType} handleClick={handleClick} />
-          </section>
-          <section>
-            <Footer />
-          </section>
-        </section>
-      </section>
-      {/* </BrowserRouter> */}
-    </div>
+    <IsLoggedInContext.Provider value={isLoggedIn}>
+      <SetLoggedInContext.Provider value={setIsLoggedIn}>
+        <Router>
+          <Sidebar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+
+            <Route path="*" element={<NotFoundPage />} />
+            <Route
+              path="/login"
+              element={isLoggedIn ? <Navigate to="/" /> : <Login />}
+            />
+            <Route path="/signup" element={<Register />} />
+            <Route path="/profile" element={<Profile />} />
+          </Routes>
+          <Footer />
+        </Router>
+      </SetLoggedInContext.Provider>
+    </IsLoggedInContext.Provider>
   );
 }
 

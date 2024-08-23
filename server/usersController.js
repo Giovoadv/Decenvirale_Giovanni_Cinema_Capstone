@@ -1,3 +1,4 @@
+import { patch } from "@mui/material";
 import User from "../src/Backend/Models/user.js";
 import session from "express-session";
 
@@ -5,14 +6,12 @@ const login = async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await User.findOne({ email });
-    console.log("User", user);
     if (user) {
       //   const isMatch = await bcrypt.compare(password, user.password);
       const isPasswordMatch = password === user.password;
-
-      console.log("isMatch", isPasswordMatch);
       if (isPasswordMatch) {
         req.session.user = { id: user._id, name: user.name, email: user.email };
+        console.log(req.session);
         res.json("Success");
       } else {
         res.status(401).json({ msg: "Password does not match" });
@@ -23,6 +22,7 @@ const login = async (req, res) => {
   } catch (error) {
     res.status(500).json({ msg: error.message });
   }
+  req.session.isAuth = true;
 };
 
 const signup = async (req, res) => {
@@ -58,12 +58,19 @@ const getUser = async (req, res) => {
 };
 
 const logout = async (req, res) => {
+  console.log(req.session);
   if (req.session) {
     req.session.destroy((err) => {
       if (err) {
         res.status(500).json({ error: "Failed to logout" });
       } else {
-        res.clearCookie("connect.sid");
+        res.clearCookie("culo", {
+          path: "/",
+          _expires: null,
+          originalMaxAge: null,
+          httpOnly: true,
+        });
+        
         res.json({ msg: "User logged out" });
       }
     });

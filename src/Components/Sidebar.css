@@ -17,3 +17,9 @@
   border-radius: 15px;
   margin-bottom: 10px !important;
 }
+
+.sidebar-wrapper {
+  position: fixed;
+  height: 100%;
+  z-index: 999;
+}

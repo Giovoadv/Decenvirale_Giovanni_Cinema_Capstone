@@ -1,10 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { IsLoggedInContext } from "../App";
-import LogoutButton from "./LogoutButton";
+import SearchMovieBar from "./SearchMovieBar";
 
-const Navbar = () => {
-  const isLoggedIn = useContext(IsLoggedInContext);
+const HomeNavbar = () => {
   return (
     <div>
       <div className="NavWrapper">
@@ -13,15 +11,7 @@ const Navbar = () => {
         <Link className="btn btn-primary" to="/login">
           Login
         </Link>
-        {isLoggedIn ? (
-          <LogoutButton />
-        ) : (
-          <>
-            <Link className="btn btn-primary" to="/login">
-              Login
-            </Link>
-          </>
-        )}
+        <SearchMovieBar />
 
         <div className="dropDown-wrapper">
           <select className="dropDown">
@@ -36,4 +26,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default HomeNavbar;

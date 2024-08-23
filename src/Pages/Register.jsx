@@ -16,10 +16,11 @@ const Register = () => {
     e.preventDefault();
     console.log(name, email, password);
     axios
-      .post("http://localhost:3001/signup", { name, email, password })
+      .post("http://localhost:3002/signup", { name, email, password })
       .then((res) => {
         if (res.status === 201) {
           console.log("User created successfully");
+          alert("User created successfully");
           navitate("/login");
         }
       })
@@ -33,9 +34,9 @@ const Register = () => {
   };
   return (
     <div className="appWrapper">
-      <section className="sidebar-wrapper">
-        <Sidebar />
-      </section>
+      {/* <section className="sidebar-wrapper">
+        
+      </section> */}
       <section className="content-wrapper">
         <Navbar />
         <section className="content-body">
@@ -72,9 +73,9 @@ const Register = () => {
             </div>
           </div>
 
-          <section>
+          {/* <section>
             <Footer />
-          </section>
+          </section> */}
         </section>
       </section>
     </div>
