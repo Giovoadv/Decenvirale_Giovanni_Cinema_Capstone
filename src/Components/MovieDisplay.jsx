@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./MovieDisplay.css";
 import AddFavourite from "./AddFavourite";
+import RemoveFavoutite from "./RemoveFavoutite";
+import { set } from "mongoose";
 const imgPath = "https://image.tmdb.org/t/p/w500";
 
 const MovieDisplay = ({ movies, titleChange, handleClick }) => {
@@ -10,6 +12,11 @@ const MovieDisplay = ({ movies, titleChange, handleClick }) => {
   const addFavoriteMovie = (movie) => {
     console.log(isFavourite);
     setIsFavourite([...isFavourite, movie]);
+  };
+
+  const removeFavoriteMovie = (movie) => {
+    console.log("Remove movie", movie);
+    setIsFavourite(isFavourite.filter((item) => item.id !== movie.id));
   };
 
   if (!movies || movies.length === 0) return <p>No movies available.</p>;
@@ -47,11 +54,26 @@ const MovieDisplay = ({ movies, titleChange, handleClick }) => {
         {movies.slice(0, limit).map((movie) => (
           <div className="img-wrapper" key={movie.id}>
             <img src={imgPath + movie.poster_path} alt={movie.title} />
-            <h2 className="movie-title">{movie.title}</h2>
+            {/* <h2 className="movie-title">{movie.title}</h2> */}
             <AddFavourite addFavoriteMovie={addFavoriteMovie} movie={movie} />
             {/* <p className="movie-overview">{movie.overview}</p> */}
           </div>
         ))}
+      </div>
+      <div>
+        <h2>Favorites</h2>
+        <div className="movie-poster">
+          {isFavourite.map((movie) => (
+            <div className="img-wrapper" key={movie.id}>
+              <img src={imgPath + movie.poster_path} alt={movie.title} />
+              {/* <h2 className="movie-title">{movie.title}</h2> */}
+              <RemoveFavoutite
+                removeFavoriteMovie={removeFavoriteMovie}
+                movie={movie}
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

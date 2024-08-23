@@ -11,13 +11,18 @@
 .img-wrapper {
   display: flex;
   flex-direction: column;
+  position: relative;
   /* align-items: center; */
   border-radius: 8px;
   padding: 1rem;
   width: 20rem;
   text-align: center;
+  transition: transform 0.2s;
 }
 
+.img-wrapper:hover {
+  transform: scale(1.1);
+}
 .img-wrapper img {
   flex: 1;
 
