@@ -15,7 +15,6 @@ const Profile = () => {
         <Navbar />
         <div className="profileContent">
           <h1>Welcome Home {user && user.name}</h1>
-          <LogoutButton />
         </div>
       </div>
     </div>

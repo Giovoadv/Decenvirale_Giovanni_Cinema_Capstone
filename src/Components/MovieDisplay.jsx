@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import "./MovieDisplay.css";
 import AddFavourite from "./AddFavourite";
 import RemoveFavoutite from "./RemoveFavoutite";
-import { set } from "mongoose";
+import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
 const imgPath = "https://image.tmdb.org/t/p/w500";
 
 const MovieDisplay = ({ movies, titleChange, handleClick }) => {
+  const [cookies, setCookies] = useCookies(["access_token"]);
   const [limit, setLimit] = useState(10);
   const [isFavourite, setIsFavourite] = useState([]);
 
@@ -53,16 +54,21 @@ const MovieDisplay = ({ movies, titleChange, handleClick }) => {
       <p className="featuredMovies">{titleChange}</p>
       <div className="movie-poster">
         {movies.slice(0, limit).map((movie) => (
-          <div  key={movie.id}>
+          <div key={movie.id}>
             <Link className="img-wrapper" to={`/movie/${movie.id}`}>
               <img src={imgPath + movie.poster_path} alt={movie.title} />
             </Link>
             {/* <h2 className="movie-title">{movie.title}</h2> */}
             <div className="img-wrapper">
-
-            <AddFavourite addFavoriteMovie={addFavoriteMovie} movie={movie} />
+              {cookies.access_token ? (
+                <AddFavourite
+                  addFavoriteMovie={addFavoriteMovie}
+                  movie={movie}
+                />
+              ) : (
+                <p className="movie-overview">{movie.title}</p>
+              )}
             </div>
-            {/* <p className="movie-overview">{movie.overview}</p> */}
           </div>
         ))}
       </div>

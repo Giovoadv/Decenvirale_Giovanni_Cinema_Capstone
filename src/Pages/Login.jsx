@@ -1,18 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Sidebar from "../Components/Sidebar";
-import Footer from "../Components/Footer";
 import "./Login.css";
 import { Link } from "react-router-dom";
 import Navbar from "../Components/Navbar";
 import axios from "axios";
-import { SetLoggedInContext } from "../App";
-import { useContext } from "react";
-import { set } from "mongoose";
 import { useCookies } from "react-cookie";
 
 export const Login = () => {
-  const setIsLoggedIn = useContext(SetLoggedInContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navitate = useNavigate();
