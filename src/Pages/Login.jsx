@@ -9,48 +9,62 @@ import axios from "axios";
 import { SetLoggedInContext } from "../App";
 import { useContext } from "react";
 import { set } from "mongoose";
+import { useCookies } from "react-cookie";
 
 export const Login = () => {
   const setIsLoggedIn = useContext(SetLoggedInContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navitate = useNavigate();
+  const [_, setCookies] = useCookies();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(email, password);
 
-    axios
-      .post(
-        "http://localhost:3002/login",
-        { email, password },
-        { withCredentials: true }
-      )
-      .then((result) => {
-        console.log(result);
-        if (result.data === "Success") {
-          console.log("User logged in successfully");
-          // alert("User logged in successfully");
-          axios
-            .get("http://localhost:3002/user", { withCredentials: true })
-            .then((res) => {
-              if (res.data.user) {
-                setIsLoggedIn(true);
-                navitate("/profile", { state: { user: res.data.user } });
-              }
-            });
-        } else {
-          alert("User do not exist");
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        if (error.response && error.response.status === 401) {
-          alert("Password does not match");
-        } else {
-          alert("User do not exist");
-        }
+    try {
+      const response = await axios.post("http://localhost:3002/login", {
+        email,
+        password,
       });
+      setCookies("access_token", response.data.user);
+      // window.localStorage.setItem("userID", response.data.userID);
+      navitate("/profile", { state: { user: response.data.user } });
+    } catch (error) {
+      console.error(error);
+    }
+
+    // axios
+    //   .post(
+    //     "http://localhost:3002/login",
+    //     { email, password },
+    //     { withCredentials: true }
+    //   )
+    //   .then((result) => {
+    //     console.log(result);
+    //     if (result.data === "Success") {
+    //       console.log("User logged in successfully");
+    //       // alert("User logged in successfully");
+    //       axios
+    //         .get("http://localhost:3002/user", { withCredentials: true })
+    //         .then((res) => {
+    //           if (res.data.user) {
+    //             setIsLoggedIn(true);
+    //             navitate("/profile", { state: { user: res.data.user } });
+    //           }
+    //         });
+    //     } else {
+    //       alert("User do not exist");
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //     if (error.response && error.response.status === 401) {
+    //       alert("Password does not match");
+    //     } else {
+    //       alert("User do not exist");
+    //     }
+    //   });
   };
 
   return (

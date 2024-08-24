@@ -3,6 +3,7 @@ import "./MovieDisplay.css";
 import AddFavourite from "./AddFavourite";
 import RemoveFavoutite from "./RemoveFavoutite";
 import { set } from "mongoose";
+import { Link } from "react-router-dom";
 const imgPath = "https://image.tmdb.org/t/p/w500";
 
 const MovieDisplay = ({ movies, titleChange, handleClick }) => {
@@ -52,10 +53,15 @@ const MovieDisplay = ({ movies, titleChange, handleClick }) => {
       <p className="featuredMovies">{titleChange}</p>
       <div className="movie-poster">
         {movies.slice(0, limit).map((movie) => (
-          <div className="img-wrapper" key={movie.id}>
-            <img src={imgPath + movie.poster_path} alt={movie.title} />
+          <div  key={movie.id}>
+            <Link className="img-wrapper" to={`/movie/${movie.id}`}>
+              <img src={imgPath + movie.poster_path} alt={movie.title} />
+            </Link>
             {/* <h2 className="movie-title">{movie.title}</h2> */}
+            <div className="img-wrapper">
+
             <AddFavourite addFavoriteMovie={addFavoriteMovie} movie={movie} />
+            </div>
             {/* <p className="movie-overview">{movie.overview}</p> */}
           </div>
         ))}

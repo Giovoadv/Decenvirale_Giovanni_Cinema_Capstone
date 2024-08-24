@@ -2,9 +2,10 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { IsLoggedInContext } from "../App";
 import LogoutButton from "./LogoutButton";
+import { useCookies } from "react-cookie";
 
 const Navbar = () => {
-  const isLoggedIn = useContext(IsLoggedInContext);
+  const [cookies, setCookies] = useCookies(["access_token"]);
   return (
     <div>
       <div className="NavWrapper">
@@ -13,7 +14,7 @@ const Navbar = () => {
         <Link className="btn btn-primary" to="/login">
           Login
         </Link>
-        {isLoggedIn ? (
+        {cookies.access_token ? (
           <LogoutButton />
         ) : (
           <>

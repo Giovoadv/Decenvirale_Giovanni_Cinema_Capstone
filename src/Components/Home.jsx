@@ -5,7 +5,7 @@ import FeaturedMovies from "./FeaturedMovies";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import Sidebar from "./Sidebar";
-import Carousel from "./Carousel";
+import Carousels from "./Carousel";
 
 import SearchMovieBar from "./SearchMovieBar";
 import HomeNavbar from "./HomeNavbar";
@@ -29,7 +29,7 @@ const Home = () => {
         <HomeNavbar />
         <section className="content-body">
           <section className="carousel-wrapper">
-            <Carousel />
+            <Carousels />
           </section>
           <section>
             <FeaturedMovies movieType={movieType} handleClick={handleClick} />

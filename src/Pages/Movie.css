@@ -1,0 +1,19 @@
+.movieCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 75px;
+}
+
+.movieCard img {
+  width: 300px;
+  height: 450px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  transition: transform 0.2s;
+}
+
+.movieCard img:hover {
+  transform: scale(1.1);
+}

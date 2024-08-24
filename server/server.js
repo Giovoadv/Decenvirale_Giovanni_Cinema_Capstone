@@ -27,15 +27,15 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
-app.use(
-  session({
-    name: 'culo',
-    secret: process.env.SESSION_SECRET,
-    saveUninitialized: true,
-    resave: false,
-    httpOnly: false,
-  })
-);
+// app.use(
+//   session({
+//     name: 'culo',
+//     secret: process.env.SESSION_SECRET,
+//     saveUninitialized: true,
+//     resave: false,
+//     httpOnly: false,
+//   })
+// );
 
 /*app.use(
   session({

@@ -19,6 +19,7 @@ import Register from "./Pages/Register";
 import NotFoundPage from "./Pages/NotFoundPage";
 import Profile from "./Pages/Profile";
 import axios from "axios";
+import Movie from "./Pages/Movie";
 
 export const IsLoggedInContext = createContext();
 export const SetLoggedInContext = createContext();
@@ -40,8 +41,7 @@ function App() {
   }, []);*/
 
   return (
-    <IsLoggedInContext.Provider value={isLoggedIn}>
-      <SetLoggedInContext.Provider value={setIsLoggedIn}>
+    
         <Router>
           <Sidebar />
           <Routes>
@@ -50,15 +50,15 @@ function App() {
             <Route path="*" element={<NotFoundPage />} />
             <Route
               path="/login"
-              element={isLoggedIn ? <Navigate to="/" /> : <Login />}
+              element={ <Login />}
             />
             <Route path="/signup" element={<Register />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/movie/:id" element={<Movie />} />
           </Routes>
           <Footer />
         </Router>
-      </SetLoggedInContext.Provider>
-    </IsLoggedInContext.Provider>
+     
   );
 }
 

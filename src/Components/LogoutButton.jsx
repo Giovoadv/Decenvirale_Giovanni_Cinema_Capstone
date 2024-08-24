@@ -5,23 +5,44 @@ import { SetLoggedInContext } from "../App";
 import { useContext } from "react";
 
 const LogoutButton = () => {
-  const setIsLoggedIn = useContext(SetLoggedInContext);
   const navigate = useNavigate();
   const handleLogout = async () => {
     try {
-      const res = await axios.post("http://localhost:3002/logout", {
-        withCredentials: true,
-      });
+      const res = await axios.post(
+        "http://localhost:3002/logout",
+        {},
+        {
+          withCredentials: true, // Ensure cookies are sent with the request
+        }
+      );
 
       if (res.status === 200) {
         console.log("User logged out successfully");
-        setIsLoggedIn(false);
-        navigate("/");
+        localStorage.removeItem("userID");
+        navigate("/"); // Redirect to home page
       }
     } catch (error) {
       console.log("Error logging out", error);
     }
   };
+
+  // const setIsLoggedIn = useContext(SetLoggedInContext);
+  // const navigate = useNavigate();
+  // const handleLogout = async () => {
+  //   try {
+  //     const res = await axios.post("http://localhost:3002/logout", {
+  //       withCredentials: true,
+  //     });
+
+  //     if (res.status === 200) {
+  //       console.log("User logged out successfully");
+  //       setIsLoggedIn(false);
+  //       navigate("/");
+  //     }
+  //   } catch (error) {
+  //     console.log("Error logging out", error);
+  //   }
+  // };
 
   return <button onClick={handleLogout}>LogoutButton</button>;
 };
