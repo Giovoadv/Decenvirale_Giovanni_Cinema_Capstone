@@ -1,20 +1,20 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { IsLoggedInContext } from "../App";
 import LogoutButton from "./LogoutButton";
 import { useCookies } from "react-cookie";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
+  const userData = useSelector((state) => state.user.user);
+  const user = userData?.user;
+
   const [cookies, setCookies] = useCookies(["access_token"]);
   return (
     <div>
       <div className="NavWrapper">
         <div className="title">Cinema </div>
 
-        <Link className="btn btn-primary" to="/login">
-          Login
-        </Link>
-        {cookies.access_token ? (
+        {user ? (
           <LogoutButton />
         ) : (
           <>

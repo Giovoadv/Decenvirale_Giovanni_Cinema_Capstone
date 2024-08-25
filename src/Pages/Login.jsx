@@ -5,60 +5,73 @@ import { Link } from "react-router-dom";
 import Navbar from "../Components/Navbar";
 import axios from "axios";
 import { useCookies } from "react-cookie";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../Slices/userSlice";
+
 
 export const Login = () => {
+  const dispatch = useDispatch();
+  const userData = useSelector((state) => state.user.user);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navitate = useNavigate();
+  const navigate = useNavigate();
   const [_, setCookies] = useCookies();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(email, password);
 
-    try {
-      const response = await axios.post("http://localhost:3002/login", {
-        email,
-        password,
-      });
-      setCookies("access_token", response.data.user);
-      // window.localStorage.setItem("userID", response.data.userID);
-      navitate("/profile", { state: { user: response.data.user } });
-    } catch (error) {
-      console.error(error);
-    }
-
-    // axios
-    //   .post(
-    //     "http://localhost:3002/login",
-    //     { email, password },
-    //     { withCredentials: true }
-    //   )
-    //   .then((result) => {
-    //     console.log(result);
-    //     if (result.data === "Success") {
-    //       console.log("User logged in successfully");
-    //       // alert("User logged in successfully");
-    //       axios
-    //         .get("http://localhost:3002/user", { withCredentials: true })
-    //         .then((res) => {
-    //           if (res.data.user) {
-    //             setIsLoggedIn(true);
-    //             navitate("/profile", { state: { user: res.data.user } });
-    //           }
-    //         });
-    //     } else {
-    //       alert("User do not exist");
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //     if (error.response && error.response.status === 401) {
-    //       alert("Password does not match");
-    //     } else {
-    //       alert("User do not exist");
-    //     }
+    // try {
+    //   const response = await axios.post("http://localhost:3002/login", {
+    //     email,
+    //     password,
     //   });
+    //   setCookies("access_token", response.data.user);
+    //   // window.localStorage.setItem("userID", response.data.userID);
+    //   navitate("/profile", { state: { user: response.data.user } });
+    // } catch (error) {
+    //   console.error(error);
+    // }
+
+    axios
+      .post(
+        "http://localhost:3002/login",
+        { email, password },
+        { withCredentials: true }
+      )
+      .then((result) => {
+        console.log(result);
+        if (result.data === "Success") {
+          console.log("User logged in successfully");
+          // alert("User logged in successfully");
+          axios
+            .get("http://localhost:3002/user", { withCredentials: true })
+            .then((res) => {
+
+              if (res.data.user) {
+                // Slice update
+                dispatch(
+                  login({
+                    user: res.data.user,
+                  })
+                );
+                // Redirect
+                navigate("/profile", { state: { user: res.data.user } });
+              }
+            });
+        } else {
+          alert("User do not exist");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        if (error.response && error.response.status === 401) {
+          alert("Password does not match");
+        } else {
+          alert("User do not exist");
+        }
+      });
   };
 
   return (

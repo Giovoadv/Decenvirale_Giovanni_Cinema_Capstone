@@ -35,9 +35,6 @@ const Home = () => {
             <FeaturedMovies movieType={movieType} handleClick={handleClick} />
           </section>
           <section>{/* <Footer /> */}</section>
-          <main>
-            <Outlet />
-          </main>
         </section>
       </section>
     </div>

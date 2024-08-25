@@ -9,8 +9,9 @@ const SearchMovieBar = () => {
   const [openModal, setOpenModal] = useState(false);
   const imgPath = "https://image.tmdb.org/t/p/w500";
   const [data, setData] = useState({});
+  
 
-  useEffect(() => {
+  /*useEffect(() => {
     console.log("useEffect");
     async function fetchData() {
       if (searchMovie?.length > 0) {
@@ -33,7 +34,7 @@ const SearchMovieBar = () => {
       }
     }
     fetchData();
-  }, [openModal]);
+  }, [openModal]);*/
 
   const inputValue = (e) => {
     setSearchMovie(e.target.value);

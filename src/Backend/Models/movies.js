@@ -4,15 +4,13 @@ import bcrypt from "bcrypt";
 const movieSchema = new mongoose.Schema(
   {
     movieId: {
-      type: String,
-      require: true,
-      lowercase: true,
-      unique: true,
+      type: Number,
     },
-    
-    
-  },
-  {
-    timestamps: true,
+    email: {
+      type: String,
+    },
   }
 );
+
+const Movies = mongoose.model("User Movies", movieSchema);
+export default Movies;

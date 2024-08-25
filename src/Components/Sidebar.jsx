@@ -31,13 +31,9 @@ const Sidebar = ({ handleClick }) => {
             style={{ border: "none" }}
             prefix={<i className="fa fa-bars fa-large"></i>}
           >
-            <a
-              href="/"
-              className="text-decoration-none"
-              style={{ color: "inherit" }}
-            >
+            <NavLink to="/home" className="active">
               Home
-            </a>
+            </NavLink>
           </CDBSidebarHeader>
 
           <CDBSidebarContent className="sidebar-content">

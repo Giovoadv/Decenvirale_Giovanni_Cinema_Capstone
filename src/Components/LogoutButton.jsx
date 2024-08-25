@@ -1,11 +1,13 @@
 import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { SetLoggedInContext } from "../App";
-import { useContext } from "react";
+import { useDispatch } from "react-redux";
+import { logout } from "../Slices/userSlice";
 
 const LogoutButton = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const handleLogout = async () => {
     try {
       const res = await axios.post(
@@ -17,9 +19,16 @@ const LogoutButton = () => {
       );
 
       if (res.status === 200) {
+        // Slice update
+        dispatch(
+          logout()
+        );
+        
         console.log("User logged out successfully");
-        localStorage.removeItem("userID");
-        navigate("/"); // Redirect to home page
+        localStorage.removeItem("session");
+
+        // Redirect
+        navigate("/home"); 
       }
     } catch (error) {
       console.log("Error logging out", error);

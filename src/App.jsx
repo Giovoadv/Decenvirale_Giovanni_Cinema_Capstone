@@ -1,10 +1,6 @@
-import CinemaNavbar from "./Components/CinemaNavbar";
-import Carousel from "./Components/Carousel";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import Sidebar from "./Components/Sidebar";
-import FeaturedMovies from "./Components/FeaturedMovies";
-import { createContext, useEffect, useState } from "react";
 import Footer from "./Components/Footer";
 import "react-toastify/dist/ReactToastify.css";
 import {
@@ -20,45 +16,39 @@ import NotFoundPage from "./Pages/NotFoundPage";
 import Profile from "./Pages/Profile";
 import axios from "axios";
 import Movie from "./Pages/Movie";
-
-export const IsLoggedInContext = createContext();
-export const SetLoggedInContext = createContext();
+import { useSelector } from "react-redux";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  const userData = useSelector((state) => state.user.user);
+  const user = userData?.user;
   /*useEffect(() => {
     axios
       .get("http://localhost:3002/user", { withCredentials: true })
       .then((response) => {
         if (response.data.user) {
+          setLoggedUser(response.data.user);
           setIsLoggedIn(true);
         } else {
           setIsLoggedIn(false);
+          setLoggedUser(null);
         }
       })
-      .catch(() => setIsLoggedIn(false));
+      .catch(() => setLoggedUser(res.data.user));
   }, []);*/
-
   return (
-    
-        <Router>
-          <Sidebar />
-          <Routes>
-            <Route path="/" element={<Home />} />
+    <Router>
+      <Sidebar />
+      <Routes>
+        <Route path="/home" element={<Home />} />
 
-            <Route path="*" element={<NotFoundPage />} />
-            <Route
-              path="/login"
-              element={ <Login />}
-            />
-            <Route path="/signup" element={<Register />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/movie/:id" element={<Movie />} />
-          </Routes>
-          <Footer />
-        </Router>
-     
+        <Route path="*" element={<NotFoundPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Register />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/movie/:id" element={<Movie />} />
+      </Routes>
+      <Footer />
+    </Router>
   );
 }
 

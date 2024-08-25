@@ -3,6 +3,7 @@ import User from "../Models/user.js";
 import session from "express-session";
 import generateToken from "../utils/generateToken.js";
 
+
 const registerUser = async (req, res) => {
   const { name, email, password } = req.body;
   try {
@@ -80,5 +81,7 @@ const userProfile = async (req, res) => {
 const updateUserProfile = async (req, res) => {
   res.status(200).json({ message: "Update User Profile" });
 };
+
+
 
 export { authUser, registerUser, logoutUser, userProfile, updateUserProfile };

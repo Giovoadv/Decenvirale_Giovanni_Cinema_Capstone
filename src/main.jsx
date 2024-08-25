@@ -1,6 +1,5 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import store from "./store.js";
 import { Provider } from "react-redux";
 import App from "./App.jsx";
 import "./index.css";
@@ -11,6 +10,7 @@ import Register from "./Pages/Register.jsx";
 import Profile from "./Pages/Profile.jsx";
 import { ToastContainer } from "react-toastify";
 import Home from "./Components/Home.jsx";
+import store from './store.js';
 
 // const router = createBrowserRouter([
 //   {
@@ -36,7 +36,9 @@ import Home from "./Components/Home.jsx";
 }
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <App />
-  </StrictMode>
+  <Provider store={store}>
+    <StrictMode>
+      <App />
+    </StrictMode>
+  </Provider>
 );
