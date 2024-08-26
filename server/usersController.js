@@ -7,24 +7,6 @@ import Movies from "../src/Backend/Models/movies.js";
 const login = async (req, res) => {
   const { email, password } = req.body;
 
-  // const user = await User.findOne({ email });
-  // if (!user) {
-  //   return res.status(404).json({ msg: "User not found" });
-  // }
-  // const isPasswordMatch = password === user.password;
-  // if (!isPasswordMatch) {
-  //   return res.status(401).json({ msg: "Password does not match" });
-  // }
-
-  // const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-  //   expiresIn: "1h",
-  // });
-
-  // res.json({
-  //   token,
-  //   user: { id: user._id, name: user.name, email: user.email },
-  // });
-
   try {
     const user = await User.findOne({ email });
     if (user) {
@@ -81,11 +63,6 @@ const getUser = async (req, res) => {
 };
 
 const logout = async (req, res) => {
-  // res.clearCookie("access_token", { path: "/", domain: "localhost" });
-
-  // return res.status(200).json({ msg: "User logged out" });
-
-  console.log(req.session);
   if (req.session) {
     req.session.destroy((err) => {
       if (err) {
@@ -102,64 +79,76 @@ const logout = async (req, res) => {
   } else {
     res.status(400).json({ error: "No session found" });
   }
-  console.log(req.session);
 };
 
 const addFavourite = async (req, res) => {
-  console.log("Email --------- ", req.session);
-  console.log("Request ", req.body.movie.id);
-  const { email } = req.session.user;
-  const { id } = req.body.movie;
-  console.log(email, id);
-  try {
-    const existingMovie = await Movies.findOne({ movieId: id, email: email });
-    if (existingMovie) {
-      return res.status(400).json({ msg: "Movie already added to favorites" });
+  if (req.session) {
+    const { email } = req.session.user;
+    const { id } = req.body.movie;
+
+    try {
+      const existingMovie = await Movies.findOne({ movieId: id, email: email });
+      if (existingMovie) {
+        return res
+          .status(400)
+          .json({ msg: "Movie already added to favorites" });
+      }
+      const favoriteMovie = await Movies.create({
+        movieId: id,
+        email: email,
+      });
+
+      res.json(favoriteMovie);
+    } catch (error) {
+      console.error(`Error: ${error} `);
+      res.status(500).json({ error: error.message });
     }
-    const favoriteMovie = await Movies.create({
-      movieId: id,
-      email: email,
-    });
-
-    res.json(favoriteMovie);
-  } catch (error) {
-    console.error(`Error: ${error} `);
-    res.status(500).json({ error: error.message });
   }
-
-  // const token = req.headers.authorization.split(" ")[1];
-  // if (!token) return res.status(401).json({ msg: "Unauthorized" });
-
-  // try {
-  //   const decoded = jwt.verify(token, process.env.JWT_SECRET);
-  //   const userId = decoded.id;
-  //   console.log(userId);
-
-  //   const user = await User.findById(userId);
-  //   console.log(user);
-
-  //   if (!user) return res.status(404).json({ msg: "User not found" });
-
-  //   const userEmail = user.email;
-  //   console.log(userEmail);
-  // } catch (error) {
-  //   console.error(`Error: ${error} `);
-  //   res.status(500).json({ error: error });
-  // }
 };
 
 const getfavoriteMovies = async (req, res) => {
-  const { email } = req.session.user;
-  console.log("GET FAVORITES EMAIL ", email);
+  if (req.session.user) {
+    const { email } = req.session?.user;
+    console.log("GET FAVORITES EMAIL ", email);
 
-  try {
-    const favoriteMovies = await Movies.find({ email: email });
-    console.log(favoriteMovies);
-    res.json(favoriteMovies);
-  } catch (error) {
-    console.error(`Error: ${error} `);
-    res.status(500).json({ error: error.message });
+    try {
+      const favoriteMovies = await Movies.find({ email: email });
+      const movieIDs = favoriteMovies?.map((movie) => movie.movieId);
+
+      res.json(movieIDs);
+    } catch (error) {
+      console.error(`Error: ${error} `);
+      res.status(500).json({ error: error.message });
+    }
   }
 };
 
-export { login, signup, getUser, logout, addFavourite, getfavoriteMovies };
+const deleteFavorite = async (req, res) => {
+  if (req.session) {
+    const { email } = req.session?.user;
+    const id = req.params.id;
+
+    try {
+      const deleteMovie = await Movies.deleteOne({ movieId: id, email: email });
+      if (deleteMovie?.deletedCount > 0) {
+        console.log(deleteMovie);
+        res.status(200).json("Movie Deleted Successfully");
+      } else {
+        res.status(400).json("Movie could not be deleted");
+      }
+    } catch (error) {
+      console.error(`Error: ${error} `);
+      res.status(500).json({ error: error.message });
+    }
+  }
+};
+
+export {
+  login,
+  signup,
+  getUser,
+  logout,
+  addFavourite,
+  getfavoriteMovies,
+  deleteFavorite,
+};

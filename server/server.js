@@ -10,6 +10,7 @@ import {
   getUser,
   logout,
   getfavoriteMovies,
+  deleteFavorite,
 } from "./usersController.js";
 import session from "express-session";
 import MongoStore from "connect-mongo";
@@ -72,6 +73,8 @@ app.post("/logout", logout);
 app.post("/favourite", addFavourite);
 
 app.get("/favourite", getfavoriteMovies);
+
+app.delete("/deleteFavorite/:id", deleteFavorite);
 
 const PORT = process.env.PORT || 5000;
 

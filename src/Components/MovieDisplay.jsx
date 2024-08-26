@@ -13,47 +13,24 @@ const imgPath = "https://image.tmdb.org/t/p/w500";
 const apiKeyTwo = "api_key=db95773a7fb212ba790d71f6adac0e7e";
 
 const MovieDisplay = ({ movies, titleChange, handleClick }) => {
+  // Dispatch fn
   const dispatch = useDispatch();
+  // Logged User
   const userData = useSelector((state) => state.user.user);
   const user = userData?.user;
-
+  // Fav movies
   const favoriteMovies = useSelector(
     (state) => state.favoriteMoviesSlice.favoriteMovies
   );
 
   const [limit, setLimit] = useState(10);
-  const [isFavourite, setIsFavourite] = useState([]);
 
-  useEffect(() => {
-    if (user) {
-      fetchFavoriteMovies();
-    } else {
-      setIsFavourite([]);
-    }
-  }, [user]);
+  const fetchSingleFavoriteMovie = async (favoriteMovie) => {
+    const movieRes = await axios.get(
+      `https://api.themoviedb.org/3/movie/${favoriteMovie.movieId}?${apiKeyTwo}`
+    );
 
-  const fetchFavoriteMovies = async () => {
-    try {
-      const res = await axios.get("http://localhost:3002/favourite", {
-        withCredentials: true,
-      });
-      console.log("Favorite Movies Data", res.data);
-
-      dispatch(favorite(res.data));
-
-      const favoriteMovies = await Promise.all(
-        res.data.map(async (movie) => {
-          const movieRes = await axios.get(
-            `https://api.themoviedb.org/3/movie/${movie.movieId}?${apiKeyTwo}`
-          );
-          return movieRes.data;
-        })
-      );
-
-      setIsFavourite(favoriteMovies);
-    } catch (error) {
-      console.error("Error fetching favorite movies:", error);
-    }
+    dispatch(favorite([movieRes, ...favoriteMovies]));
   };
 
   const addFavoriteMovie = (movie) => {
@@ -66,21 +43,12 @@ const MovieDisplay = ({ movies, titleChange, handleClick }) => {
       .then((response) => {
         console.log("addFavoriteMovie RESP", response.data);
 
-        const { movieId, email } = response.data;
-        fetchFavoriteMovies();
-
-        // Call event
-        // setIsFavourite([...isFavourite, movie]);
-        dispatch(favorite(movie.id));
+        const favoriteMovie = response.data;
+        fetchSingleFavoriteMovie(favoriteMovie);
       })
       .catch((error) => {
         console.error("Error adding favorite:", error);
       });
-  };
-
-  const removeFavoriteMovie = (movie) => {
-    console.log("Remove movie", movie);
-    setIsFavourite(isFavourite.filter((item) => item.id !== movie.id));
   };
 
   if (!movies || movies.length === 0) return <p>No movies available.</p>;
@@ -132,20 +100,6 @@ const MovieDisplay = ({ movies, titleChange, handleClick }) => {
             </div>
           </div>
         ))}
-      </div>
-      <div>
-        <h2>Favorites</h2>
-        <div className="movie-poster">
-          {isFavourite.map((movie) => (
-            <div className="img-wrapper" key={movie.id}>
-              <img src={imgPath + movie.poster_path} alt={movie.title} />
-              <RemoveFavoutite
-                removeFavoriteMovie={removeFavoriteMovie}
-                movie={movie}
-              />
-            </div>
-          ))}
-        </div>
       </div>
     </div>
   );

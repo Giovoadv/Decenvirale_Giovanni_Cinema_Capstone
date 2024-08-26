@@ -7,19 +7,13 @@ const favoriteMoviesSlice = createSlice({
   initialState,
   reducers: {
     favorite(state, action) {
-      console.log("sliceFavorite", state.user, action.payload);
-      const movieID = action.payload;
-      state.favoriteMovies.push(movieID);
+      state.favoriteMovies = action.payload;
     },
-    unfavorite(state, action) {
-      const movieID = action.payload;
-      const idx = state.favoriteMovies.findIndex((id) => {
-        id === movieID;
-      });
-      state.favoriteMovies.splice(idx, 1);
+    clearFavorites(state) {
+      state.favoriteMovies = [];
     },
   },
 });
 
-export const { favorite, unfavorite } = favoriteMoviesSlice.actions;
+export const { favorite, clearFavorites } = favoriteMoviesSlice.actions;
 export default favoriteMoviesSlice.reducer;
