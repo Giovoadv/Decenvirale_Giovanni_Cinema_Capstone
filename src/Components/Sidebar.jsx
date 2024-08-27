@@ -10,8 +10,13 @@ import {
 import { NavLink } from "react-router-dom";
 import "../Components/Sidebar.css";
 import GradientIcon from "./GradientIcon";
+import { useSelector } from "react-redux";
+import LogoutButton from "./LogoutButton";
 
 const Sidebar = ({ handleClick }) => {
+  const userData = useSelector((state) => state.user.user);
+  const user = userData?.user;
+
   return (
     <div className="sidebar-wrapper">
       <div
@@ -38,25 +43,49 @@ const Sidebar = ({ handleClick }) => {
 
           <CDBSidebarContent className="sidebar-content">
             <CDBSidebarMenu>
-              <NavLink to="/profile" className="active">
-                <CDBSidebarMenuItem className="menuItem" icon="columns">
-                  Profile
-                </CDBSidebarMenuItem>
+              {user ? (
+                <NavLink to="/profile" className="active">
+                  <CDBSidebarMenuItem className="menuItem" icon="id-badge">
+                    Profile
+                  </CDBSidebarMenuItem>
+                </NavLink>
+              ) : (
+                <NavLink to="/login" className="active">
+                  <CDBSidebarMenuItem className="menuItem" icon="user">
+                    Login
+                  </CDBSidebarMenuItem>
+                </NavLink>
+              )}
+
+              <NavLink to="/signup" className="active">
+                {!user ? (
+                  <CDBSidebarMenuItem className="menuItem" icon="user-plus">
+                    Register
+                  </CDBSidebarMenuItem>
+                ) : (
+                  ""
+                )}
+              </NavLink>
+              <NavLink to="/changename" className="active">
+                {user ? (
+                  <CDBSidebarMenuItem className="menuItem" icon="pen">
+                    Change Name
+                  </CDBSidebarMenuItem>
+                ) : (
+                  ""
+                )}
+              </NavLink>
+              <NavLink to="/changepassword" className="active">
+                {user ? (
+                  <CDBSidebarMenuItem className="menuItem" icon="keyboard">
+                    Change Password
+                  </CDBSidebarMenuItem>
+                ) : (
+                  ""
+                )}
               </NavLink>
               <NavLink to="#" className="active">
-                <CDBSidebarMenuItem className="menuItem" icon="film">
-                  Popular
-                </CDBSidebarMenuItem>
-              </NavLink>
-              <NavLink to="#" className="active">
-                <CDBSidebarMenuItem className="menuItem" icon="film">
-                  Top Rate
-                </CDBSidebarMenuItem>
-              </NavLink>
-              <NavLink to="#" className="active">
-                <CDBSidebarMenuItem className="menuItem" icon="chart-line">
-                  Upcoming
-                </CDBSidebarMenuItem>
+                {user ? <LogoutButton /> : ""}
               </NavLink>
             </CDBSidebarMenu>
           </CDBSidebarContent>

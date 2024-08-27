@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../Slices/userSlice";
+import { CDBSidebarMenuItem } from "cdbreact";
 
 const LogoutButton = () => {
   const navigate = useNavigate();
@@ -20,15 +21,13 @@ const LogoutButton = () => {
 
       if (res.status === 200) {
         // Slice update
-        dispatch(
-          logout()
-        );
-        
+        dispatch(logout());
+
         console.log("User logged out successfully");
         localStorage.removeItem("session");
 
         // Redirect
-        navigate("/home"); 
+        navigate("/home");
       }
     } catch (error) {
       console.log("Error logging out", error);
@@ -53,7 +52,9 @@ const LogoutButton = () => {
   //   }
   // };
 
-  return <button onClick={handleLogout}>LogoutButton</button>;
+  return (
+    <CDBSidebarMenuItem className="menuItem" icon="sign-out-alt" onClick={handleLogout}>Logout </CDBSidebarMenuItem>
+  );
 };
 
 export default LogoutButton;

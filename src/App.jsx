@@ -17,6 +17,8 @@ import Profile from "./Pages/Profile";
 import axios from "axios";
 import Movie from "./Pages/Movie";
 import { useSelector } from "react-redux";
+import ChangePassword from "./Pages/ChangePassword";
+import ChangeName from "./Pages/ChangeName";
 
 function App() {
   const userData = useSelector((state) => state.user.user);
@@ -39,12 +41,14 @@ function App() {
     <Router>
       <Sidebar />
       <Routes>
+        <Route path="/" element={<Navigate to="/home" replace />} />
         <Route path="/home" element={<Home />} />
-
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Register />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/changepassword" element={<ChangePassword />} />
+        <Route path="/changename" element={<ChangeName />} />
+        {user ? <Route path="/profile" element={<Profile />} /> : ""}
         <Route path="/movie/:id" element={<Movie />} />
       </Routes>
       <Footer />

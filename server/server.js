@@ -1,9 +1,7 @@
 import express from "express";
 import cors from "cors";
-import bcrypt from "bcrypt";
 import dotenv from "dotenv";
 import connectDB from "./db.js";
-import User from "../src/Backend/Models/user.js";
 import {
   login,
   signup,
@@ -11,6 +9,8 @@ import {
   logout,
   getfavoriteMovies,
   deleteFavorite,
+  changePassword,
+  changeName,
 } from "./usersController.js";
 import session from "express-session";
 import MongoStore from "connect-mongo";
@@ -75,6 +75,10 @@ app.post("/favourite", addFavourite);
 app.get("/favourite", getfavoriteMovies);
 
 app.delete("/deleteFavorite/:id", deleteFavorite);
+
+app.put("/changePassword", changePassword);
+
+app.put("/changeName", changeName);
 
 const PORT = process.env.PORT || 5000;
 

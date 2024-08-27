@@ -1,7 +1,5 @@
-import { patch } from "@mui/material";
 import User from "../src/Backend/Models/user.js";
 import session from "express-session";
-import jwt from "jsonwebtoken";
 import Movies from "../src/Backend/Models/movies.js";
 
 const login = async (req, res) => {
@@ -109,7 +107,6 @@ const addFavourite = async (req, res) => {
 const getfavoriteMovies = async (req, res) => {
   if (req.session.user) {
     const { email } = req.session?.user;
-    console.log("GET FAVORITES EMAIL ", email);
 
     try {
       const favoriteMovies = await Movies.find({ email: email });
@@ -143,6 +140,53 @@ const deleteFavorite = async (req, res) => {
   }
 };
 
+const changePassword = async (req, res) => {
+  const { email, newPassword } = req.body;
+
+  if (!email || !newPassword) {
+    return res.status(400).json({ message: "Email and password are required" });
+  }
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    user.password = newPassword;
+    await user.save();
+
+    res.status(200).json({ message: "Password changed successfully" });
+  } catch (error) {
+    console.error("Error changing password:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+const changeName = async (req, res) => {
+  const { email, newName } = req.body;
+
+  if (!email || !newName) {
+    return res.status(400).json({ message: "Email and name are required" });
+  }
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    user.name = newName;
+    await user.save();
+
+    res.status(200).json(user);
+  } catch (error) {
+    console.error("Error changing name:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 export {
   login,
   signup,
@@ -151,4 +195,6 @@ export {
   addFavourite,
   getfavoriteMovies,
   deleteFavorite,
+  changePassword,
+  changeName,
 };

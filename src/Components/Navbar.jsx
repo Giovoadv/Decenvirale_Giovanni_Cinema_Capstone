@@ -8,21 +8,10 @@ const Navbar = () => {
   const userData = useSelector((state) => state.user.user);
   const user = userData?.user;
 
-  const [cookies, setCookies] = useCookies(["access_token"]);
   return (
     <div>
       <div className="NavWrapper">
         <div className="title">Cinema </div>
-
-        {user ? (
-          <LogoutButton />
-        ) : (
-          <>
-            <Link className="btn btn-primary" to="/login">
-              Login
-            </Link>
-          </>
-        )}
 
         <div className="dropDown-wrapper">
           <select className="dropDown">

@@ -14,14 +14,6 @@ const HomeNavbar = () => {
       <div className="NavWrapper">
         <div className="title">Cinema </div>
 
-        {user ? (
-          <LogoutButton />
-        ) : (
-          <Link className="btn btn-primary" to="/login">
-            Login
-          </Link>
-        )}
-
         <SearchMovieBar />
 
         <div className="dropDown-wrapper">

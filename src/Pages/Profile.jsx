@@ -13,6 +13,7 @@ const Profile = () => {
   // Dispatch fn
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.user.user);
+
   const user = userData?.user;
 
   const favoriteMovies = useSelector(
@@ -65,7 +66,7 @@ const Profile = () => {
       <div className="content-wrapper">
         <Navbar />
         <div className="profileContent">
-          <h1>Welcome Home {user && user.name}</h1>
+          <h1>Welcome Home {user.name}</h1>
           <div className="movie-poster">
             {favoriteMovies.map((movie) => (
               <div key={movie.id} className="img-wrapper">

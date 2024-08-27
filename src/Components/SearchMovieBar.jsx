@@ -11,7 +11,7 @@ const SearchMovieBar = () => {
   const [data, setData] = useState({});
   
 
-  /*useEffect(() => {
+  useEffect(() => {
     console.log("useEffect");
     async function fetchData() {
       if (searchMovie?.length > 0) {
@@ -34,7 +34,7 @@ const SearchMovieBar = () => {
       }
     }
     fetchData();
-  }, [openModal]);*/
+  }, [openModal]);
 
   const inputValue = (e) => {
     setSearchMovie(e.target.value);
