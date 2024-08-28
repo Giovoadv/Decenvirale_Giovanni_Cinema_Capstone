@@ -17,7 +17,7 @@ import MongoStore from "connect-mongo";
 import { addFavourite } from "./usersController.js";
 
 
-console.log(ENV);
+
 dotenv.config({});
 
 const app = express();
