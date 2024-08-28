@@ -36,12 +36,12 @@ app.use(
     secret: process.env.SESSION_SECRET,
     saveUninitialized: true,
     resave: false,
-    cookie: {
-      path: "/",
-      httpOnly: true,
-      secure: false,
-      maxAge: null,
-    },
+    // cookie: {
+    //   path: "/",
+    //   httpOnly: true,
+    //   secure: false,
+    //   maxAge: null,
+    // },
   })
 );
 

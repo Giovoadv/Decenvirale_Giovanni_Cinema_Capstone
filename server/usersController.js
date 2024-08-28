@@ -25,7 +25,7 @@ const login = async (req, res) => {
   } catch (error) {
     res.status(500).json({ msg: error.message });
   }
-  req.session.isAuth = true;
+ 
 };
 
 const signup = async (req, res) => {
