@@ -46,8 +46,13 @@ function App() {
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Register />} />
-        <Route path="/changepassword" element={<ChangePassword />} />
-        <Route path="/changename" element={<ChangeName />} />
+        {user ? (
+          <Route path="/changepassword" element={<ChangePassword />} />
+        ) : (
+          " "
+        )}
+        {user ? <Route path="/changename" element={<ChangeName />} /> : " "}
+
         {user ? <Route path="/profile" element={<Profile />} /> : ""}
         <Route path="/movie/:id" element={<Movie />} />
       </Routes>

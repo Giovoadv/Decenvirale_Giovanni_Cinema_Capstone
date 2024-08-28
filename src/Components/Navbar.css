@@ -15,12 +15,14 @@
   display: flex;
   /* text-align: center; */
   /* place-content: center; */
-  color: red;
   font-size: 3rem;
   border-bottom: 0.1px solid #38393a;
   letter-spacing: 0.2rem;
   font-weight: bold;
   padding-left: 0.5rem;
+  background: linear-gradient(42deg, #723e7b 10.2%, #9b2352 82.74%);
+  background-clip: text;
+  color: transparent;
 }
 .dropDown-wrapper {
   text-align: center;

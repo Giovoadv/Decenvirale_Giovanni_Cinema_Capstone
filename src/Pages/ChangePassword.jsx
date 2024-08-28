@@ -40,7 +40,7 @@ const ChangePassword = () => {
           <Navbar />
           <section className="content-body">
             <div className="loginWrapper">
-              <div>
+              <div className="changeName">
                 <h1>Change Password</h1>
                 <form
                   className="loginContainer"

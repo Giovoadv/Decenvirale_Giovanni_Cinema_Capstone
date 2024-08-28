@@ -8,7 +8,6 @@ import { useCookies } from "react-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../Slices/userSlice";
 
-
 export const Login = () => {
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.user.user);
@@ -20,7 +19,6 @@ export const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
 
     // try {
     //   const response = await axios.post("http://localhost:3002/login", {
@@ -48,7 +46,6 @@ export const Login = () => {
           axios
             .get("http://localhost:3002/user", { withCredentials: true })
             .then((res) => {
-
               if (res.data.user) {
                 // Slice update
                 dispatch(
@@ -100,10 +97,10 @@ export const Login = () => {
                 />
                 <button type="submit">Login</button>
               </form>
-              <h3>Don't have an account?</h3>
-              <Link to="/signup" type="submit">
-                Create a New Account
-              </Link>
+              <div className="notAccount">
+                <h3>Don't have an account?</h3>
+                <Link to="/signup">Create a New Account</Link>
+              </div>
             </div>
           </div>
 

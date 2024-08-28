@@ -10,3 +10,36 @@
   align-items: center;
   width: 100%;
 }
+
+.body {
+  background-color: #1c1c1c;
+  color: white;
+
+  
+}
+
+.head {
+  background-color: #1c1c1c;
+  color: white;
+}
+
+.foot{
+  background-color: #1c1c1c;
+  color: white;
+}
+
+.searchButton{
+  background-color: #1c1c1c;
+  color: white;
+ 
+  
+}
+
+.modal-content{
+  background-color: #1c1c1c;
+  color: white;
+}
+
+.movie-title{
+  text-align: center;
+}

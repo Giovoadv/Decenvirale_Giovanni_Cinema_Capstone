@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { login } from "../Slices/userSlice";
+import "./ChangeName.css"; 
 
 const ChangeName = () => {
   const userData = useSelector((state) => state.user.user);
@@ -12,6 +13,7 @@ const ChangeName = () => {
   const [newName, setNewName] = useState("");
   const navitage = useNavigate();
   const dispatch = useDispatch();
+  
 
   const changingName = async (e) => {
     try {
@@ -48,7 +50,7 @@ const ChangeName = () => {
           <Navbar />
           <section className="content-body">
             <div className="loginWrapper">
-              <div>
+              <div className="changeName">
                 <h1>Change Profile Name</h1>
                 <form
                   className="loginContainer"
@@ -56,8 +58,8 @@ const ChangeName = () => {
                 >
                   <label> New Name</label>
                   <input
-                    type="password"
-                    placeholder="Enter  new name"
+                    type="text"
+                    placeholder="Enter new name"
                     value={newName}
                     onChange={(e) => setNewName(e.target.value)}
 

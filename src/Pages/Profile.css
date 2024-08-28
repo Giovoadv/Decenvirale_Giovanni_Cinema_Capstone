@@ -1,7 +1,28 @@
-.profileContent{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 50px;
+.profileContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
 }
+
+.profileTitle {
+  color: aliceblue;
+  border-bottom: 1px solid lightgray;
+}
+
+.userName {
+  background: linear-gradient(42deg, #723e7b 10.2%, #9b2352 82.74%);
+  background-clip: text;
+  color: transparent;
+}
+
+.favoritesMovies {
+  background: linear-gradient(42deg, #9c979c 10.2%, #ad340f 82.74%);
+  background-clip: text;
+  color: transparent;
+  margin-top: 50px;
+  letter-spacing: 0.5rem;
+ 
+}
+

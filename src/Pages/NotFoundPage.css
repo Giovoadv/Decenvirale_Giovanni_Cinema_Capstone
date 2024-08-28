@@ -1,0 +1,15 @@
+.notFound {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+
+  text-align: center;
+}
+
+.homeLink {
+  margin-left: 1rem;
+}

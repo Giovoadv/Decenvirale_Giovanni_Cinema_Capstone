@@ -66,7 +66,12 @@ const Profile = () => {
       <div className="content-wrapper">
         <Navbar />
         <div className="profileContent">
-          <h1>Welcome Home {user.name}</h1>
+          <h1 className="profileTitle">
+            Hello, <span className="userName">{user.name}</span>
+          </h1>
+          <span className="favoriteMoviesSpan">
+            <h2 className="favoritesMovies">Favorites Movies</h2>
+          </span>
           <div className="movie-poster">
             {favoriteMovies.map((movie) => (
               <div key={movie.id} className="img-wrapper">

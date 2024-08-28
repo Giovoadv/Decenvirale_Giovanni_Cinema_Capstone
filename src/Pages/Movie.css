@@ -17,3 +17,33 @@
 .movieCard img:hover {
   transform: scale(1.1);
 }
+
+.movieInfo{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  width: 330px;
+  color: lightgrey;
+  transition: transform 0.2s;
+  
+  margin-bottom: 2rem;
+}
+
+.movieInfo p {
+  text-align: center;
+}
+
+.releaseData{
+  font-weight: bold;
+}
+
+.movieInfo:hover {
+  transform: scale(1.1);
+}
+.singleMovieTitle{
+ 
+  margin-bottom: 2rem;
+
+}

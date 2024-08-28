@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import LogoutButton from "./LogoutButton";
 import { useCookies } from "react-cookie";
 import { useSelector } from "react-redux";
+import "./Navbar.css";
 
 const Navbar = () => {
   const userData = useSelector((state) => state.user.user);
@@ -11,7 +12,7 @@ const Navbar = () => {
   return (
     <div>
       <div className="NavWrapper">
-        <div className="title">Cinema </div>
+        <div className="title" style={{letterSpacing: "0.5rem"}}>Cinema </div>
 
         <div className="dropDown-wrapper">
           <select className="dropDown">

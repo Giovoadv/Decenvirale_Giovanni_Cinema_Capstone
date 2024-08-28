@@ -38,11 +38,17 @@ const Movie = () => {
     <div className="content-wrapper">
       <Navbar />
       <div className="movieCard">
-        <h1>Movie Details</h1>
+        <span>
+          <h1 className="singleMovieTitle">Movie Details</h1>
+        </span>
         {<img src={imgPath + movie.poster_path} alt={movie.title} />}
-        <h2>{movie.title}</h2>
-        <p>{movie.overview}</p>
-        <p>Release Date: {movie.release_date}</p>
+        <div className="movieInfo">
+          <h2>{movie.title}</h2>
+          <p>{movie.overview}</p>
+          <p> <span className="releaseData">
+          Release Date:
+            </span> {movie.release_date}</p>
+        </div>
       </div>
     </div>
   );
