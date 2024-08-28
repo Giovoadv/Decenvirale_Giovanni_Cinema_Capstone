@@ -17,7 +17,7 @@ const ChangeName = () => {
 
   const changingName = async (e) => {
     try {
-      const res = await axios.put("http://localhost:3002/changeName", {
+      const res = await axios.put("https://localhost:3002/changeName", {
         email,
         newName,
       });

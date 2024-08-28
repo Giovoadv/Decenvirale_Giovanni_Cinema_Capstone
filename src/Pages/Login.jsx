@@ -34,7 +34,7 @@ export const Login = () => {
 
     axios
       .post(
-        "http://localhost:3002/login",
+        "https://localhost:3002/login",
         { email, password },
         { withCredentials: true }
       )
@@ -44,7 +44,7 @@ export const Login = () => {
           console.log("User logged in successfully");
           // alert("User logged in successfully");
           axios
-            .get("http://localhost:3002/user", { withCredentials: true })
+            .get("https://localhost:3002/user", { withCredentials: true })
             .then((res) => {
               if (res.data.user) {
                 // Slice update

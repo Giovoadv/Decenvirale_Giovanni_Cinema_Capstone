@@ -13,7 +13,7 @@ const ChangePassword = () => {
 
   const changePassword = async (e) => {
     try {
-      const res = await axios.put("http://localhost:3002/changePassword", {
+      const res = await axios.put("https://localhost:3002/changePassword", {
         email,
         newPassword,
       });

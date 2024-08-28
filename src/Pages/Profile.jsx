@@ -32,7 +32,7 @@ const Profile = () => {
     console.log("Remove movie", movie);
 
     const res = await axios.delete(
-      `http://localhost:3002/deleteFavorite/${movie.id}`,
+      `https://localhost:3002/deleteFavorite/${movie.id}`,
       { withCredentials: true }
     );
     fetchFavoriteMovies();
@@ -41,7 +41,7 @@ const Profile = () => {
 
   const fetchFavoriteMovies = async () => {
     try {
-      const res = await axios.get("http://localhost:3002/favourite", {
+      const res = await axios.get("https://localhost:3002/favourite", {
         withCredentials: true,
       });
       console.log("Favorite Movies Data", res.data);
