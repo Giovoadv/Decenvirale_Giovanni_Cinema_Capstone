@@ -18,7 +18,7 @@ import { addFavourite } from "./usersController.js";
 
 const ENV = process.env.NODE_ENV || "development";
 const envFile = `.env.${ENV}`;
-
+console.log(ENV);
 dotenv.config({});
 
 const app = express();
