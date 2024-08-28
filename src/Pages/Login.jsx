@@ -4,7 +4,6 @@ import "./Login.css";
 import { Link } from "react-router-dom";
 import Navbar from "../Components/Navbar";
 import axios from "axios";
-import { useCookies } from "react-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../Slices/userSlice";
 
@@ -17,7 +16,7 @@ export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const [_, setCookies] = useCookies();
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();

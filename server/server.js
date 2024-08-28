@@ -16,8 +16,6 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import { addFavourite } from "./usersController.js";
 
-
-
 dotenv.config({});
 
 const app = express();
@@ -36,12 +34,12 @@ app.use(
     secret: process.env.SESSION_SECRET,
     saveUninitialized: true,
     resave: false,
-    // cookie: {
-    //   path: "/",
-    //   httpOnly: true,
-    //   secure: false,
-    //   maxAge: null,
-    // },
+    cookie: {
+      path: "/",
+      secure: false,
+      maxAge: null,
+      secure: true,
+    },
   })
 );
 
