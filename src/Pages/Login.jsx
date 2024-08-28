@@ -29,7 +29,7 @@ export const Login = () => {
         if (result.data === "Success") {
           console.log("User logged in successfully");
           // alert("User logged in successfully");
-          axios.get(`${apiUrl}/user`, { withCredentials: true }).then((res) => {
+          axios.get(`https://decenvirale-giovanni-cinema-capstone.onrender.com/user`, { withCredentials: true }).then((res) => {
             if (res.data.user) {
               // Slice update
               dispatch(
