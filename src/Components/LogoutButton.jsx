@@ -12,7 +12,7 @@ const LogoutButton = () => {
   const handleLogout = async () => {
     try {
       const res = await axios.post(
-        "https://localhost:3002/logout",
+        "http://localhost:3002/logout",
         {},
         {
           withCredentials: true, // Ensure cookies are sent with the request

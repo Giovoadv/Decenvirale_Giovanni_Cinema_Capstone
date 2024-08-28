@@ -8,6 +8,8 @@ import { useCookies } from "react-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../Slices/userSlice";
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 export const Login = () => {
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.user.user);
@@ -34,7 +36,7 @@ export const Login = () => {
 
     axios
       .post(
-        "https://localhost:3002/login",
+        `${apiUrl}/login`,
         { email, password },
         { withCredentials: true }
       )
@@ -44,7 +46,7 @@ export const Login = () => {
           console.log("User logged in successfully");
           // alert("User logged in successfully");
           axios
-            .get("https://localhost:3002/user", { withCredentials: true })
+            .get(`${apiUrl}/user`, { withCredentials: true })
             .then((res) => {
               if (res.data.user) {
                 // Slice update

@@ -16,7 +16,7 @@ const Register = () => {
     e.preventDefault();
     console.log(name, email, password);
     axios
-      .post("https://localhost:3002/signup", { name, email, password })
+      .post("http://localhost:3002/signup", { name, email, password })
       .then((res) => {
         if (res.status === 201) {
           console.log("User created successfully");

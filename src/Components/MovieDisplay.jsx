@@ -20,7 +20,7 @@ const MovieDisplay = ({ movies, titleChange, handleClick }) => {
   const addFavoriteMovie = (movie) => {
     axios
       .post(
-        "https://localhost:3002/favourite",
+        "http://localhost:3002/favourite",
         { movie },
         { withCredentials: true }
       )
@@ -39,7 +39,7 @@ const MovieDisplay = ({ movies, titleChange, handleClick }) => {
 
   const removeFavoriteMovie = async (movie) => {
     await axios
-      .delete(`https://localhost:3002/deleteFavorite/${movie.id}`, {
+      .delete(`http://localhost:3002/deleteFavorite/${movie.id}`, {
         withCredentials: true,
       })
       .then((response) => {
@@ -60,7 +60,7 @@ const MovieDisplay = ({ movies, titleChange, handleClick }) => {
 
   const fetchFavoriteMovies = async () => {
     try {
-      const res = await axios.get("https://localhost:3002/favourite", {
+      const res = await axios.get("http://localhost:3002/favourite", {
         withCredentials: true,
       });
       const favoriteMoviesData = await Promise.all(
