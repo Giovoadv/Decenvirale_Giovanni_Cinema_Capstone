@@ -8,7 +8,7 @@ import { favorite, clearFavorites } from "../Slices/favoriteMoviesSlice.js";
 
 const imgPath = "https://image.tmdb.org/t/p/w500";
 const apiKeyTwo = "api_key=db95773a7fb212ba790d71f6adac0e7e";
-const apiUrl = import.meta.env.VITE_API_URL;
+// const apiUrl = import.meta.env.VITE_API_URL;
 
 const Profile = () => {
   // Dispatch fn
@@ -32,7 +32,7 @@ const Profile = () => {
   const removeFavoriteMovie = async (movie) => {
     console.log("Remove movie", movie);
 
-    const res = await axios.delete(`${apiUrl}/deleteFavorite/${movie.id}`, {
+    const res = await axios.delete(`http://localhost:3002/deleteFavorite/${movie.id}`, {
       withCredentials: true,
     });
     fetchFavoriteMovies();
@@ -41,7 +41,7 @@ const Profile = () => {
 
   const fetchFavoriteMovies = async () => {
     try {
-      const res = await axios.get(`${apiUrl}/favourite`, {
+      const res = await axios.get(`http://localhost:3002/favourite`, {
         withCredentials: true,
       });
       console.log("Favorite Movies Data", res.data);

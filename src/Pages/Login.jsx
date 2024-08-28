@@ -8,7 +8,6 @@ import { useCookies } from "react-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../Slices/userSlice";
 
-
 const apiUrl = import.meta.env.VITE_API_URL;
 
 export const Login = () => {
@@ -23,43 +22,25 @@ export const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // try {
-    //   const response = await axios.post("http://localhost:3002/login", {
-    //     email,
-    //     password,
-    //   });
-    //   setCookies("access_token", response.data.user);
-    //   // window.localStorage.setItem("userID", response.data.userID);
-    //   navitate("/profile", { state: { user: response.data.user } });
-    // } catch (error) {
-    //   console.error(error);
-    // }
-
     axios
-      .post(
-        `${apiUrl}/login`,
-        { email, password },
-        { withCredentials: true }
-      )
+      .post(`${apiUrl}/login`, { email, password }, { withCredentials: true })
       .then((result) => {
         console.log(result);
         if (result.data === "Success") {
           console.log("User logged in successfully");
           // alert("User logged in successfully");
-          axios
-            .get(`${apiUrl}/user`, { withCredentials: true })
-            .then((res) => {
-              if (res.data.user) {
-                // Slice update
-                dispatch(
-                  login({
-                    user: res.data.user,
-                  })
-                );
-                // Redirect
-                navigate("/profile", { state: { user: res.data.user } });
-              }
-            });
+          axios.get(`${apiUrl}/user`, { withCredentials: true }).then((res) => {
+            if (res.data.user) {
+              // Slice update
+              dispatch(
+                login({
+                  user: res.data.user,
+                })
+              );
+              // Redirect
+              navigate("/profile", { state: { user: res.data.user } });
+            }
+          });
         } else {
           alert("User do not exist");
         }
