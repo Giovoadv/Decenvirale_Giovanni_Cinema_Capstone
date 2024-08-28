@@ -23,20 +23,7 @@ import ChangeName from "./Pages/ChangeName";
 function App() {
   const userData = useSelector((state) => state.user.user);
   const user = userData?.user;
-  /*useEffect(() => {
-    axios
-      .get("http://localhost:3002/user", { withCredentials: true })
-      .then((response) => {
-        if (response.data.user) {
-          setLoggedUser(response.data.user);
-          setIsLoggedIn(true);
-        } else {
-          setIsLoggedIn(false);
-          setLoggedUser(null);
-        }
-      })
-      .catch(() => setLoggedUser(res.data.user));
-  }, []);*/
+
   return (
     <Router>
       <Sidebar />

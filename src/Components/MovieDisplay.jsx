@@ -21,7 +21,7 @@ const MovieDisplay = ({ movies, titleChange, handleClick }) => {
   const addFavoriteMovie = (movie) => {
     axios
       .post(
-        `http://localhost:3002/favourite`,
+        `https://decenvirale-giovanni-cinema-capstone.onrender.com/favourite`,
         { movie },
         { withCredentials: true }
       )
