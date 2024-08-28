@@ -32,7 +32,7 @@ const Profile = () => {
   const removeFavoriteMovie = async (movie) => {
     console.log("Remove movie", movie);
 
-    const res = await axios.delete(`http://localhost:3002/deleteFavorite/${movie.id}`, {
+    const res = await axios.delete(`https://decenvirale-giovanni-cinema-capstone.onrender.com/deleteFavorite/${movie.id}`, {
       withCredentials: true,
     });
     fetchFavoriteMovies();
@@ -41,7 +41,7 @@ const Profile = () => {
 
   const fetchFavoriteMovies = async () => {
     try {
-      const res = await axios.get(`http://localhost:3002/favourite`, {
+      const res = await axios.get(`https://decenvirale-giovanni-cinema-capstone.onrender.com/favourite`, {
         withCredentials: true,
       });
       console.log("Favorite Movies Data", res.data);

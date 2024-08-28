@@ -14,7 +14,7 @@ const LogoutButton = () => {
   const handleLogout = async () => {
     try {
       const res = await axios.post(
-        `http://localhost:3002/logout`,
+        `https://decenvirale-giovanni-cinema-capstone.onrender.com/logout`,
         {},
         {
           withCredentials: true, // Ensure cookies are sent with the request

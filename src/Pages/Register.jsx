@@ -18,7 +18,7 @@ const Register = () => {
     e.preventDefault();
     console.log(name, email, password);
     axios
-      .post(`http://localhost:3002/signup`, { name, email, password })
+      .post(`https://decenvirale-giovanni-cinema-capstone.onrender.com/signup`, { name, email, password })
       .then((res) => {
         if (res.status === 201) {
           console.log("User created successfully");

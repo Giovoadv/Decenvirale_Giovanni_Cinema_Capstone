@@ -15,7 +15,7 @@ const ChangePassword = () => {
 
   const changePassword = async (e) => {
     try {
-      const res = await axios.put(`http://localhost:3002/changePassword`, {
+      const res = await axios.put(`https://decenvirale-giovanni-cinema-capstone.onrender.com/changePassword`, {
         email,
         newPassword,
       });

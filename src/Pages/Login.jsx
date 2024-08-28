@@ -23,7 +23,7 @@ export const Login = () => {
     e.preventDefault();
 
     axios
-      .post(`${apiUrl}/login`, { email, password }, { withCredentials: true })
+      .post(`https://decenvirale-giovanni-cinema-capstone.onrender.com/login`, { email, password }, { withCredentials: true })
       .then((result) => {
         console.log(result);
         if (result.data === "Success") {
