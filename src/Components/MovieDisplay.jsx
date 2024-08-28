@@ -8,6 +8,7 @@ import { favorite } from "../Slices/favoriteMoviesSlice";
 
 const imgPath = "https://image.tmdb.org/t/p/w500";
 const apiKeyTwo = "api_key=db95773a7fb212ba790d71f6adac0e7e";
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const MovieDisplay = ({ movies, titleChange, handleClick }) => {
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ const MovieDisplay = ({ movies, titleChange, handleClick }) => {
   const addFavoriteMovie = (movie) => {
     axios
       .post(
-        "http://localhost:3002/favourite",
+        `${apiUrl}/favourite`,
         { movie },
         { withCredentials: true }
       )
@@ -39,7 +40,7 @@ const MovieDisplay = ({ movies, titleChange, handleClick }) => {
 
   const removeFavoriteMovie = async (movie) => {
     await axios
-      .delete(`http://localhost:3002/deleteFavorite/${movie.id}`, {
+      .delete(`${apiUrl}/deleteFavorite/${movie.id}`, {
         withCredentials: true,
       })
       .then((response) => {
@@ -60,7 +61,7 @@ const MovieDisplay = ({ movies, titleChange, handleClick }) => {
 
   const fetchFavoriteMovies = async () => {
     try {
-      const res = await axios.get("http://localhost:3002/favourite", {
+      const res = await axios.get(`${apiUrl}/favourite`, {
         withCredentials: true,
       });
       const favoriteMoviesData = await Promise.all(

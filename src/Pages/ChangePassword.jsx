@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 const ChangePassword = () => {
   const userData = useSelector((state) => state.user.user);
   const user = userData?.user;
@@ -13,7 +15,7 @@ const ChangePassword = () => {
 
   const changePassword = async (e) => {
     try {
-      const res = await axios.put("http://localhost:3002/changePassword", {
+      const res = await axios.put(`${apiUrl}/changePassword`, {
         email,
         newPassword,
       });

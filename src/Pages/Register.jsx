@@ -6,6 +6,8 @@ import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../Components/Navbar";
 import axios from "axios";
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -16,7 +18,7 @@ const Register = () => {
     e.preventDefault();
     console.log(name, email, password);
     axios
-      .post("http://localhost:3002/signup", { name, email, password })
+      .post(`${apiUrl}/signup`, { name, email, password })
       .then((res) => {
         if (res.status === 201) {
           console.log("User created successfully");

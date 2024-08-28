@@ -5,6 +5,8 @@ import { useDispatch } from "react-redux";
 import { logout } from "../Slices/userSlice";
 import { CDBSidebarMenuItem } from "cdbreact";
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 const LogoutButton = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -12,7 +14,7 @@ const LogoutButton = () => {
   const handleLogout = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:3002/logout",
+        `${apiUrl}/logout`,
         {},
         {
           withCredentials: true, // Ensure cookies are sent with the request
