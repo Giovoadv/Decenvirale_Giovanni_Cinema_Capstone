@@ -8,7 +8,7 @@ import { favorite, clearFavorites } from "../Slices/favoriteMoviesSlice.js";
 
 const imgPath = "https://image.tmdb.org/t/p/w500";
 const apiKeyTwo = "api_key=db95773a7fb212ba790d71f6adac0e7e";
-const apiUrl = process.env.REACT_APP_API_URL;
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const Profile = () => {
   // Dispatch fn

@@ -16,14 +16,17 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import { addFavourite } from "./usersController.js";
 
-dotenv.config();
+const ENV = process.env.NODE_ENV || "development";
+const envFile = `.env.${ENV}`;
+
+dotenv.config({});
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: process.env.REACT_APP_API_URL,
+    origin: process.env.FRONTEND_URL,
     credentials: true,
   })
 );

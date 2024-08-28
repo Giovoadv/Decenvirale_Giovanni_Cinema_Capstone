@@ -8,7 +8,8 @@ import { useCookies } from "react-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../Slices/userSlice";
 
-const apiUrl = process.env.REACT_APP_API_URL;
+
+const apiUrl = import.meta.env.VITE_API_URL;
 
 export const Login = () => {
   const dispatch = useDispatch();

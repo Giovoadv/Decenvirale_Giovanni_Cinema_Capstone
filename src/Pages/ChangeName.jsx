@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { login } from "../Slices/userSlice";
 import "./ChangeName.css"; 
-const apiUrl = process.env.REACT_APP_API_URL;
+const apiUrl = import.meta.env.VITE_API_URL;
 const ChangeName = () => {
   const userData = useSelector((state) => state.user.user);
   const user = userData?.user;
