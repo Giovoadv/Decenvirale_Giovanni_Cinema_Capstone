@@ -30,7 +30,6 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/home" replace />} />
         <Route path="/home" element={<Home />} />
-        <Route path="*" element={<NotFoundPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Register />} />
         {user ? (
@@ -42,6 +41,7 @@ function App() {
 
         {user ? <Route path="/profile" element={<Profile />} /> : ""}
         <Route path="/movie/:id" element={<Movie />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer />
     </Router>

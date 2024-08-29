@@ -7,7 +7,6 @@ const login = async (req, res) => {
   const JWT_SECRET = process.env.VITE_JWT_SECRET;
   const { email, password } = req.body;
 
-  console.log('JWT_SECRET ', JWT_SECRET);
   try {
     const user = await User.findOne({ email });
     if (user) {
@@ -16,7 +15,7 @@ const login = async (req, res) => {
       if (isPasswordMatch) {
         // Create and assign a JWT token
         const token = jwt.sign(
-          { id: user._id, email: user.email },
+          { id: user._id, email: user.email, name: user.name },
           JWT_SECRET,
           { expiresIn: "1h" }
         );
