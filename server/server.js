@@ -23,44 +23,26 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL,
+    origin: process.env.VITE_FRONTEND_URL,
     credentials: true,
   })
 );
 
 app.use(
   session({
-    name: "Session",
     secret: process.env.SESSION_SECRET,
-    saveUninitialized: true,
     resave: false,
+    saveUninitialized: false,
     cookie: {
-      path: "/",
-      secure: false,
-      maxAge: null,
-      secure: true,
-    },
+      path: '/', // Cookie is valid for the entire domain
+      secure: true, // Set to true if using HTTPS
+      httpOnly: true, // Helps prevent XSS attacks
+      maxAge: 3600000 // Cookie expiration time in milliseconds (1 hour)
+    }
   })
 );
 
 connectDB();
-
-/*app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    store: MongoStore.create({
-      mongoUrl: process.env.MONGO_URI,
-      autoRemove: "interval",
-      autoRemoveInterval: 1, // In minutes. Default
-    }),
-    unset: "destroy",
-    cookie: {
-      maxAge: 24 * 60 * 60 * 1000,
-    },
-  })
-);*/
 
 app.post("/signup", signup);
 

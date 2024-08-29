@@ -8,7 +8,7 @@ import { favorite } from "../Slices/favoriteMoviesSlice";
 
 const imgPath = "https://image.tmdb.org/t/p/w500";
 const apiKeyTwo = "api_key=db95773a7fb212ba790d71f6adac0e7e";
-const apiUrl = import.meta.env.VITE_API_URL;
+const apiUrl = import.meta.env.VITE_BACK_END_URL;
 
 const MovieDisplay = ({ movies, titleChange, handleClick }) => {
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ const MovieDisplay = ({ movies, titleChange, handleClick }) => {
   const addFavoriteMovie = (movie) => {
     axios
       .post(
-        `https://decenvirale-giovanni-cinema-capstone.onrender.com/favourite`,
+        `${apiUrl}/favourite`,
         { movie },
         { withCredentials: true }
       )
@@ -40,7 +40,7 @@ const MovieDisplay = ({ movies, titleChange, handleClick }) => {
 
   const removeFavoriteMovie = async (movie) => {
     await axios
-      .delete(`https://decenvirale-giovanni-cinema-capstone.onrender.com/deleteFavorite/${movie.id}`, {
+      .delete(`${apiUrl}/deleteFavorite/${movie.id}`, {
         withCredentials: true,
       })
       .then((response) => {
@@ -61,7 +61,7 @@ const MovieDisplay = ({ movies, titleChange, handleClick }) => {
 
   const fetchFavoriteMovies = async () => {
     try {
-      const res = await axios.get(`https://decenvirale-giovanni-cinema-capstone.onrender.com/favourite`, {
+      const res = await axios.get(`${apiUrl}/favourite`, {
         withCredentials: true,
       });
       const favoriteMoviesData = await Promise.all(

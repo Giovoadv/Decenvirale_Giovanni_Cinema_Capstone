@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { login } from "../Slices/userSlice";
 import "./ChangeName.css"; 
-// const apiUrl = import.meta.env.VITE_API_URL;
+const apiUrl = import.meta.env.VITE_BACK_END_URL;
 const ChangeName = () => {
   const userData = useSelector((state) => state.user.user);
   const user = userData?.user;
@@ -17,7 +17,7 @@ const ChangeName = () => {
 
   const changingName = async (e) => {
     try {
-      const res = await axios.put(`https://decenvirale-giovanni-cinema-capstone.onrender.com/changeName`, {
+      const res = await axios.put(`${apiUrl}/changeName`, {
         email,
         newName,
       });

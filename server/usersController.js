@@ -4,7 +4,6 @@ import Movies from "../src/Backend/Models/movies.js";
 
 const login = async (req, res) => {
   const { email, password } = req.body;
-
   try {
     const user = await User.findOne({ email });
     if (user) {
@@ -25,7 +24,6 @@ const login = async (req, res) => {
   } catch (error) {
     res.status(500).json({ msg: error.message });
   }
- 
 };
 
 const signup = async (req, res) => {
@@ -66,11 +64,7 @@ const logout = async (req, res) => {
       if (err) {
         res.status(500).json({ error: "Failed to logout" });
       } else {
-        res.clearCookie("session", {
-          path: "/",
-          domain: "localhost",
-        });
-
+        res.clearCookie("connect.sid"); // Clear the session cookie
         res.json({ msg: "User logged out" });
       }
     });
@@ -163,6 +157,7 @@ const changePassword = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
 const changeName = async (req, res) => {
   const { email, newName } = req.body;
 

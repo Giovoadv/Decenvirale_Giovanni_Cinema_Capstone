@@ -7,7 +7,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../Slices/userSlice";
 
-const apiUrl = import.meta.env.VITE_API_URL;
+const apiUrl = import.meta.env.VITE_BACK_END_URL;
 
 export const Login = () => {
   const dispatch = useDispatch();
@@ -20,15 +20,14 @@ export const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     axios
-      .post(`https://decenvirale-giovanni-cinema-capstone.onrender.com/login`, { email, password }, { withCredentials: true })
+      .post(`${apiUrl}/login`, { email, password }, { withCredentials: true })
       .then((result) => {
         console.log(result);
         if (result.data === "Success") {
           console.log("User logged in successfully");
           // alert("User logged in successfully");
-          axios.get(`https://decenvirale-giovanni-cinema-capstone.onrender.com/user`, { withCredentials: true }).then((res) => {
+          axios.get(`${apiUrl}/user`, { withCredentials: true }).then((res) => {
             if (res.data.user) {
               // Slice update
               dispatch(
