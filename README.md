@@ -56,17 +56,27 @@ You can view the live version of the Cinema App at [https://decenvirale-giovanni
    Environment Variables
 To configure the environment variables for local development versus production, follow these instructions:
 
-Local Development
-For running the app locally, you need to set the environment variables to connect to your local frontend and backend servers. In the .env file, uncomment the following lines:
+**Local Development**
+
+- For running the app locally, you need to set the environment variables to connect to your local frontend and backend servers. In the .env file, uncomment the following lines:
 
 **LOCAL VARIABLES**:
+- Uncomment these variables for running locally
+
+  
 VITE_FRONTEND_URL=http://localhost:5173
 VITE_BACK_END_URL=http://localhost:3002
 
 - Make sure to comment out the production environment variables:
 
 **PRODUCTION VARIABLES**:
-# VITE_FRONTEND_URL=https://decenvirale-giovanni-cinema-capstone-ifiv.onrender.com
-# VITE_BACK_END_URL=https://decenvirale-giovanni-cinema-capstone.onrender.com
+
+- Comment these variables for running locally
+  
+
+ VITE_FRONTEND_URL=https://decenvirale-giovanni-cinema-capstone-ifiv.onrender.com
+ VITE_BACK_END_URL=https://decenvirale-giovanni-cinema-capstone.onrender.com
+
+
 
 
