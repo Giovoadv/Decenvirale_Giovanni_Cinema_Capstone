@@ -16,29 +16,38 @@ export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     axios
       .post(`${apiUrl}/login`, { email, password }, { withCredentials: true })
-      .then((result) => {
-        console.log(result);
-        if (result.data === "Success") {
+      .then((response) => {
+        if (response?.data?.result === "Success") {
+          const { token } = response?.data;
           console.log("User logged in successfully");
-          // alert("User logged in successfully");
-          axios.get(`${apiUrl}/user`, { withCredentials: true }).then((res) => {
-            if (res.data.user) {
-              // Slice update
-              dispatch(
-                login({
-                  user: res.data.user,
-                })
-              );
-              // Redirect
-              navigate("/profile", { state: { user: res.data.user } });
-            }
-          });
+
+          // Save token in localStorage
+          localStorage.setItem("authToken", token);
+
+          axios
+            .get(`${apiUrl}/user`, {
+              headers: {
+                authorization: `Bearer ${token}`,
+              },
+              withCredentials: true,
+            })
+            .then((res) => {
+              if (res.data.user) {
+                // Slice update
+                dispatch(
+                  login({
+                    user: res.data.user,
+                  })
+                );
+                // Redirect
+                navigate("/profile", { state: { user: res.data.user } });
+              }
+            });
         } else {
           alert("User do not exist");
         }

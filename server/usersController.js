@@ -1,20 +1,33 @@
 import User from "../src/Backend/Models/user.js";
 import session from "express-session";
 import Movies from "../src/Backend/Models/movies.js";
+import  jwt from 'jsonwebtoken';
 
 const login = async (req, res) => {
+  const JWT_SECRET = process.env.VITE_JWT_SECRET;
   const { email, password } = req.body;
+
+  console.log('JWT_SECRET ', JWT_SECRET);
   try {
     const user = await User.findOne({ email });
     if (user) {
       //   const isMatch = await bcrypt.compare(password, user.password);
       const isPasswordMatch = password === user.password;
       if (isPasswordMatch) {
+        // Create and assign a JWT token
+        const token = jwt.sign(
+          { id: user._id, email: user.email },
+          JWT_SECRET,
+          { expiresIn: "1h" }
+        );
+
+        // Save session
         req.session.user = { id: user._id, name: user.name, email: user.email };
         req.session.save();
         console.log("LOGIN ------------ ", req.session);
 
-        res.json("Success");
+        res.json({ token, result: "Success" });
+
       } else {
         res.status(401).json({ msg: "Password does not match" });
       }
@@ -29,9 +42,9 @@ const login = async (req, res) => {
 const signup = async (req, res) => {
   try {
     const { name, email, password } = req.body;
-    console.log(name, email, password);
+
     const existingUser = await User.findOne({ email });
-    console.log(existingUser);
+
     if (existingUser) {
       return res.status(400).json({ msg: "User already exists" });
     }
@@ -51,8 +64,8 @@ const signup = async (req, res) => {
 };
 
 const getUser = async (req, res) => {
-  if (req.session.user) {
-    res.json({ user: req.session.user });
+  if (req.user) {
+    res.json({ user: req.user });
   } else {
     res.status(401).json({ msg: "Not authenticated" });
   }
@@ -74,8 +87,8 @@ const logout = async (req, res) => {
 };
 
 const addFavourite = async (req, res) => {
-  if (req.session) {
-    const { email } = req.session.user;
+  if (req.user) {
+    const { email } = req.user;
     const { id } = req.body.movie;
 
     try {
@@ -99,8 +112,8 @@ const addFavourite = async (req, res) => {
 };
 
 const getfavoriteMovies = async (req, res) => {
-  if (req.session.user) {
-    const { email } = req.session?.user;
+  if (req.user) {
+    const { email } = req?.user;
 
     try {
       const favoriteMovies = await Movies.find({ email: email });
@@ -115,14 +128,13 @@ const getfavoriteMovies = async (req, res) => {
 };
 
 const deleteFavorite = async (req, res) => {
-  if (req.session) {
-    const { email } = req.session?.user;
+  if (req.user) {
+    const { email } = req?.user;
     const id = req.params.id;
 
     try {
       const deleteMovie = await Movies.deleteOne({ movieId: id, email: email });
       if (deleteMovie?.deletedCount > 0) {
-        console.log(deleteMovie);
         res.status(200).json("Movie Deleted Successfully");
       } else {
         res.status(400).json("Movie could not be deleted");

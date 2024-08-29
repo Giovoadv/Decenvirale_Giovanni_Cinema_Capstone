@@ -11,6 +11,7 @@ const apiKeyTwo = "api_key=db95773a7fb212ba790d71f6adac0e7e";
 const apiUrl = import.meta.env.VITE_BACK_END_URL;
 
 const MovieDisplay = ({ movies, titleChange, handleClick }) => {
+  const token = localStorage.getItem("authToken");
   const dispatch = useDispatch();
   const favoriteMovies = useSelector(
     (state) => state.favoriteMoviesSlice.favoriteMovies
@@ -23,10 +24,14 @@ const MovieDisplay = ({ movies, titleChange, handleClick }) => {
       .post(
         `${apiUrl}/favourite`,
         { movie },
-        { withCredentials: true }
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+          withCredentials: true,
+        }
       )
       .then((response) => {
-        console.log("addFavoriteMovie RESP", response.data);
         const favoriteMovie = response.data;
         fetchSingleFavoriteMovie(favoriteMovie);
       })
@@ -41,6 +46,9 @@ const MovieDisplay = ({ movies, titleChange, handleClick }) => {
   const removeFavoriteMovie = async (movie) => {
     await axios
       .delete(`${apiUrl}/deleteFavorite/${movie.id}`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
         withCredentials: true,
       })
       .then((response) => {
@@ -62,6 +70,9 @@ const MovieDisplay = ({ movies, titleChange, handleClick }) => {
   const fetchFavoriteMovies = async () => {
     try {
       const res = await axios.get(`${apiUrl}/favourite`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
         withCredentials: true,
       });
       const favoriteMoviesData = await Promise.all(

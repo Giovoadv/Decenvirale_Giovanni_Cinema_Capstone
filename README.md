@@ -12,6 +12,13 @@ The Cinema App is a movie website that allows users to search for movies, view d
 - **React Router**: A library for routing in React applications, used to manage navigation within the app (although routing isn't fully utilized in this version).
 - **TMDb API**: Provides movie data including posters, titles, and more. This API is used to populate the movie details and featured movies sections.
 
+
+## Features
+- **Login Page**: Users can log in with their email and password.
+- **Signup Page**: New users can create an account with their email, name, and password.
+- **Logout Page**: Users can log out of their account, which will clear their session.
+- **Profile Page**: Users can view and manage their profile information and add their favorite movies.
+
 ## Approach Taken
 
 1. **Component-Based Architecture**:
@@ -28,12 +35,22 @@ The Cinema App is a movie website that allows users to search for movies, view d
    - Axios is used to send requests to the TMDb API based on the user's search query.
    - Movie data is fetched and displayed in the modal and other sections of the app.
 
+5.   **User Authentication**:
+
+- Users can log in, sign up, and log out. Session management is handled on the server side with Express.js and sessions.
+
+6.   **Profile Management**:
+
+- Users can view their profile information and manage their favorite movies, which are stored and retrieved from the database.
+
 ## Live Site
 
-You can view the live version of the Cinema App at [https://cinematx.netlify.app](#). (Replace this placeholder with the actual URL of your deployed application.)
+You can view the live version of the Cinema App at [https://decenvirale-giovanni-cinema-capstone-ifiv.onrender.com]
 
 ## Usage Instructions
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/Giovoadv/Cinema-App.git
+   git clone https://github.com/Giovoadv/Decenvirale_Giovanni_Cinema_Capstone.git
+
+

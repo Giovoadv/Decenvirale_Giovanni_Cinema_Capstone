@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./db.js";
+import  jwt from 'jsonwebtoken';
+
 import {
   login,
   signup,
@@ -16,7 +18,10 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import { addFavourite } from "./usersController.js";
 
-dotenv.config({});
+dotenv.config();
+
+// JWT Secret Key
+const JWT_SECRET = process.env.VITE_JWT_SECRET; 
 
 const app = express();
 app.use(express.json());
@@ -42,25 +47,41 @@ app.use(
   })
 );
 
+// Middleware to authenticate requests
+const authenticateJWT = (req, res, next) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+
+  if (token) {
+    jwt.verify(token, JWT_SECRET, (err, user) => {
+      if (err) return res.sendStatus(403);
+      req.user = user;
+      next();
+    });
+  } else {
+    res.sendStatus(401);
+  }
+};
+
 connectDB();
 
 app.post("/signup", signup);
 
 app.post("/login", login);
 
-app.get("/user", getUser);
+app.get("/user", authenticateJWT, getUser);
 
 app.post("/logout", logout);
 
-app.post("/favourite", addFavourite);
+app.post("/favourite", authenticateJWT, addFavourite);
 
-app.get("/favourite", getfavoriteMovies);
+app.get("/favourite", authenticateJWT, getfavoriteMovies);
 
-app.delete("/deleteFavorite/:id", deleteFavorite);
+app.delete("/deleteFavorite/:id", authenticateJWT, deleteFavorite);
 
-app.put("/changePassword", changePassword);
+app.put("/changePassword", authenticateJWT, changePassword);
 
-app.put("/changeName", changeName);
+app.put("/changeName", authenticateJWT, changeName);
 
 const PORT = process.env.PORT || 5000;
 

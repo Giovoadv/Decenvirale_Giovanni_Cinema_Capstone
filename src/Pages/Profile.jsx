@@ -11,6 +11,7 @@ const apiKeyTwo = "api_key=db95773a7fb212ba790d71f6adac0e7e";
 const apiUrl = import.meta.env.VITE_BACK_END_URL;
 
 const Profile = () => {
+  const token = localStorage.getItem("authToken");
   // Dispatch fn
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.user.user);
@@ -33,6 +34,9 @@ const Profile = () => {
     console.log("Remove movie", movie);
 
     const res = await axios.delete(`${apiUrl}/deleteFavorite/${movie.id}`, {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
       withCredentials: true,
     });
     fetchFavoriteMovies();
@@ -42,9 +46,11 @@ const Profile = () => {
   const fetchFavoriteMovies = async () => {
     try {
       const res = await axios.get(`${apiUrl}/favourite`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
         withCredentials: true,
       });
-      console.log("Favorite Movies Data", res.data);
 
       const favoriteMovies = await Promise.all(
         res.data.map(async (movieID) => {

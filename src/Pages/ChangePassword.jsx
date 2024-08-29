@@ -7,6 +7,7 @@ import axios from "axios";
 const apiUrl = import.meta.env.VITE_BACK_END_URL;
 
 const ChangePassword = () => {
+  const token = localStorage.getItem("authToken");
   const userData = useSelector((state) => state.user.user);
   const user = userData?.user;
   const { email } = user;
@@ -15,10 +16,19 @@ const ChangePassword = () => {
 
   const changePassword = async (e) => {
     try {
-      const res = await axios.put(`${apiUrl}/changePassword`, {
-        email,
-        newPassword,
-      });
+      const res = await axios.put(
+        `${apiUrl}/changePassword`,
+        {
+          email,
+          newPassword,
+        },
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+          withCredentials: true,
+        }
+      );
       alert("Password changed successfully");
 
       navitage("/profile");

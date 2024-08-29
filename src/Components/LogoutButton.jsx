@@ -8,6 +8,7 @@ import { CDBSidebarMenuItem } from "cdbreact";
 const apiUrl = import.meta.env.VITE_BACK_END_URL;
 
 const LogoutButton = () => {
+  const token = localStorage.getItem("authToken");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -17,6 +18,9 @@ const LogoutButton = () => {
         `${apiUrl}/logout`,
         {},
         {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
           withCredentials: true, // Ensure cookies are sent with the request
         }
       );
@@ -26,7 +30,9 @@ const LogoutButton = () => {
         dispatch(logout());
 
         console.log("User logged out successfully");
-        localStorage.removeItem("session");
+
+        // Clear token from localStorage
+        localStorage.removeItem("authToken");
 
         // Redirect
         navigate("/home");
@@ -36,10 +42,14 @@ const LogoutButton = () => {
     }
   };
 
-
-
   return (
-    <CDBSidebarMenuItem className="menuItem" icon="sign-out-alt" onClick={handleLogout}>Logout </CDBSidebarMenuItem>
+    <CDBSidebarMenuItem
+      className="menuItem"
+      icon="sign-out-alt"
+      onClick={handleLogout}
+    >
+      Logout{" "}
+    </CDBSidebarMenuItem>
   );
 };
 
